@@ -1,0 +1,119 @@
+[
+  {
+    "model_name": "ALVINE",
+    "category" : "Sheer",
+    "product_type" :"sheer curtains,1 pair, off-white",
+"img" : "",
+     "value" :"78",
+    "number": "5",
+    "color":"white",
+    "product_Id" : 1,
+    "family_ID" : [
+2,3,4
+    ]
+  },
+  {
+    "model_name": "BYMOTT",
+    "category" : "Sheer",
+    "product_type" :"background curtain,1 pair, white/beige striped",
+    "img" : "",
+    "value" :"60",
+    "number": "5",
+    "color":"beige",
+    "product_Id" : 2,
+    "family_ID" : [
+1,3,4
+    ]
+  },
+  {
+    "model_name": "ANNAKAJSA",
+    "category" : "Sheer",
+    "product_type" :"background curtain,1 pair, white/beige striped",
+    "img" : "",
+    "value" :"82",
+    "number": "5",
+    "color":"black",
+    "product_Id" : 3,
+    "family_ID" : [
+      1,2,4,5
+    ]
+  },
+  {
+    "model_name": "HILLEBORG",
+    "category" : "Sheer",
+    "product_type" :"background curtain,1 pair, white/beige striped",
+    "img" : "",
+    "value" :"90",
+    "number": "5",
+    "color":"green",
+    "product_Id" : 4,
+    "family_ID" : [
+      1,2,3,5
+    ]
+  },
+  {
+    "model_name": "ROSENMOTT",
+    "category" : "Sheer",
+    "product_type" :"blackout curtain,1 pair, black/floral patterned",
+    "img" : "",
+    "value" :"200",
+    "number": "5",
+    "color":"black",
+    "product_Id" : 5,
+    "family_ID" : [
+      1,2,3,4
+    ]
+  },
+  {
+    "model_name": "EKTORP",
+    "category" : "Seat",
+    "product_type" :"2-seat sofa, totebo light beige",
+    "img" : "",
+    "value" :"3.895",
+    "number": "2",
+    "color":"beige",
+    "product_Id" : 6,
+    "family_ID" : [
+      7,8,9
+    ]
+  },
+  {
+    "model_name": "EKTORP",
+    "category" : "Seat",
+    "product_type" :"3-seat sofa, Hallarp grey",
+    "img" : "",
+    "value" :"5.895",
+    "number": "2",
+    "color":"grey",
+    "product_Id" : 7,
+    "family_ID" : [
+      6,8,9
+    ]
+  },
+  {
+    "model_name": "FRIHETEN",
+    "category" : "Seat",
+    "product_type" :"corner sofa-bed, skiftebo dark blue",
+    "img" : "",
+    "value" :"8.360",
+    "number": "1",
+    "color":"blue",
+    "product_Id" : 8,
+    "family_ID" : [
+      6,7,9
+    ]
+  },
+  {
+    "model_name": "KIVIK",
+    "category" : "Seat",
+    "product_type" :"3-seat sofa and chaise longue, kelinge grey/turquoise",
+    "img" : "",
+    "value" :"9.100",
+    "number": "2",
+    "color":"green",
+    "product_Id" : 9,
+    "family_ID" : [
+      6,8,7
+    ]
+  }
+]
