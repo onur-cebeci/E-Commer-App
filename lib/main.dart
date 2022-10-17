@@ -1,6 +1,6 @@
 import 'package:e_commer/constant.dart';
 import 'package:e_commer/firebase_options.dart';
-import 'package:e_commer/screens/home_page.dart';
+import 'package:e_commer/screens/login_screen/sing_in_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
               TextStyle(color: kSecondColor, fontSize: 18, fontFamily: "Serif"),
         ),
       ),
-      home: const HomePage(),
+      home: const SignIn(),
     );
   }
 }
