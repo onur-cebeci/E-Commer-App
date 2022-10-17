@@ -7,8 +7,8 @@ class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    const imgSizeHeight = 200.0;
-    const imgSizeWidth = 250.0;
+    const imgSizeHeight = 180.0;
+    const imgSizeWidth = 200.0;
     return Scaffold(
       body: Stack(
         children: [
@@ -19,16 +19,16 @@ class SignIn extends StatelessWidget {
                   left: -bigPadding,
                   top: 0,
                   child: SizedBox(
-                    height: 180,
-                    width: 200,
+                    height: imgSizeHeight,
+                    width: imgSizeWidth,
                     child: Image.asset("assets/images/login/main_top.png"),
                   )),
               Positioned(
                 top: -bigPadding,
                 right: -bigPadding,
                 child: SizedBox(
-                  height: 180,
-                  width: 200,
+                  height: imgSizeHeight,
+                  width: imgSizeWidth,
                   child: Transform.rotate(
                     angle: 1.58,
                     child: Image.asset("assets/images/login/signup_top.png"),
@@ -82,7 +82,9 @@ class SignIn extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(mediumPadding),
                 child: TextFormField(
+                  keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
+                      labelText: 'E-mail',
                       hoverColor: kPrimaryColor,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20)))),
@@ -91,7 +93,9 @@ class SignIn extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(mediumPadding),
                 child: TextFormField(
+                  obscureText: true,
                   decoration: const InputDecoration(
+                      labelText: 'Password',
                       hoverColor: kPrimaryColor,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20)))),
@@ -109,7 +113,7 @@ class SignIn extends StatelessWidget {
                         backgroundColor: MaterialStateProperty.all(kLightColor),
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     SizedBox(
                       height: 50,
                       width: 150,
@@ -136,39 +140,3 @@ class SignIn extends StatelessWidget {
     );
   }
 }
-/*
-            Positioned(
-                top: size.height / 6,
-                child: Padding(
-                  padding: const EdgeInsets.all(mediumPadding),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                        hoverColor: kPrimaryColor,
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20)))),
-                  ),
-                )),
-            Positioned(
-                top: size.height / 5,
-                child: Padding(
-                  padding: const EdgeInsets.all(mediumPadding),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                        hoverColor: kPrimaryColor,
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20)))),
-                  ),
-                )),
-            Positioned(
-                top: size.height / 6,
-                child: SizedBox(
-                  height: 50,
-                  width: 150,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: const Text('Sing In'),
-                  ),
-                )),
- */
