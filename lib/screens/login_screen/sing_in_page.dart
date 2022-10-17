@@ -1,12 +1,16 @@
 import 'package:e_commer/constant.dart';
-import 'package:e_commer/screens/login_screen/sing_up_page.dart';
+import 'package:e_commer/firebase_auth/sign_in_auth.dart';
+import 'package:e_commer/firebase_auth/socials_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatelessWidget {
-  const SignIn({Key? key}) : super(key: key);
+  const SignIn({Key? key, required this.onClickedSignIn}) : super(key: key);
+  final VoidCallback onClickedSignIn;
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController emailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
     const imgSizeHeight = 180.0;
     const imgSizeWidth = 200.0;
     return Scaffold(
@@ -63,19 +67,7 @@ class SignIn extends StatelessWidget {
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(Colors.white)),
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          PageRouteBuilder(
-                              transitionDuration:
-                                  const Duration(milliseconds: 650),
-                              pageBuilder: (context, animation, _) {
-                                return FadeTransition(
-                                  opacity: animation,
-                                  child: const SignUp(),
-                                );
-                              }),
-                        );
-                      },
+                      onPressed: onClickedSignIn,
                       child: const Text(
                         'Sing Up',
                         style: TextStyle(color: kPrimaryColor),
@@ -117,6 +109,7 @@ class SignIn extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(mediumPadding),
                 child: TextFormField(
+                  controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                       labelText: 'E-mail',
@@ -129,6 +122,7 @@ class SignIn extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(mediumPadding),
                 child: TextFormField(
+                  controller: passwordController,
                   obscureText: true,
                   decoration: const InputDecoration(
                       labelText: 'Password',
@@ -144,7 +138,9 @@ class SignIn extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       child: Image.asset('assets/icons/google.png'),
-                      onPressed: () {},
+                      onPressed: () {
+                        singInGoogle();
+                      },
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(kLightColor),
                       ),
@@ -154,7 +150,10 @@ class SignIn extends StatelessWidget {
                       height: 50,
                       width: 150,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          singInWithFirebase(
+                              emailController, passwordController, context);
+                        },
                         child: const Text('Sing In'),
                       ),
                     ),

@@ -2,17 +2,16 @@ import 'package:e_commer/constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-Future singUp(
+Future singUpWithFirebase(
     TextEditingController emailController,
     TextEditingController passwordController,
     BuildContext context,
     GlobalKey<FormState> formKey) async {
-  String emailAnswerText = 'already_exists';
+  String emailAnswerText = 'This account already exists';
   final snackBar = SnackBar(
     content: Text(
       emailAnswerText,
-      style: const TextStyle(
-          fontSize: 16, fontWeight: FontWeight.w400, color: Colors.white),
+      style: Theme.of(context).textTheme.headline4,
     ),
     backgroundColor: kPrimaryColor,
   );

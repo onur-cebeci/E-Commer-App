@@ -1,17 +1,27 @@
 import 'package:e_commer/constant.dart';
-import 'package:e_commer/screens/login_screen/sing_in_page.dart';
+import 'package:e_commer/firebase_auth/sign_up_auth.dart';
+import 'package:e_commer/firebase_auth/socials_auth.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 class SignUp extends StatelessWidget {
   const SignUp({
     Key? key,
+    required this.onClicledSingUp,
   }) : super(key: key);
+  final VoidCallback onClicledSingUp;
   @override
   Widget build(BuildContext context) {
+    TextEditingController emailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
+    TextEditingController passwordControllerAgain = TextEditingController();
+    GlobalKey<FormState> formKey = GlobalKey<FormState>();
     const imgSizeHeight = 180.0;
     const imgSizeWidth = 200.0;
     return Scaffold(
-      body: Stack(
+        body: Form(
+      key: formKey,
+      child: Stack(
         children: [
           Stack(
             alignment: Alignment.center,
@@ -56,19 +66,7 @@ class SignUp extends StatelessWidget {
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(Colors.white)),
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          PageRouteBuilder(
-                              transitionDuration:
-                                  const Duration(milliseconds: 650),
-                              pageBuilder: (context, animation, _) {
-                                return FadeTransition(
-                                  opacity: animation,
-                                  child: const SignIn(),
-                                );
-                              }),
-                        );
-                      },
+                      onPressed: onClicledSingUp,
                       child: const Text(
                         'Sing In',
                         style: TextStyle(color: kPrimaryColor),
@@ -120,36 +118,50 @@ class SignUp extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(
                     horizontal: mediumPadding, vertical: smallPadding),
                 child: TextFormField(
+                  controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                       labelText: 'E-mail',
                       hoverColor: kPrimaryColor,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20)))),
+                  validator: (email) =>
+                      email != null && !EmailValidator.validate(email)
+                          ? 'enter valid email address'
+                          : null,
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
                     horizontal: mediumPadding, vertical: smallPadding),
                 child: TextFormField(
+                  controller: passwordController,
                   obscureText: true,
                   decoration: const InputDecoration(
                       labelText: 'Password',
                       hoverColor: kPrimaryColor,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20)))),
+                  validator: (value) => value != null && value.length < 6
+                      ? 'must be at least 6 characters'
+                      : null,
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
                     horizontal: mediumPadding, vertical: smallPadding),
                 child: TextFormField(
+                  controller: passwordControllerAgain,
                   obscureText: true,
                   decoration: const InputDecoration(
                       labelText: 'Retype Password',
                       hoverColor: kPrimaryColor,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20)))),
+                  validator: (_) => passwordController.text.trim() !=
+                          passwordControllerAgain.text.trim()
+                      ? 'passwords not same'
+                      : null,
                 ),
               ),
               Padding(
@@ -160,7 +172,9 @@ class SignUp extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       child: Image.asset('assets/icons/google.png'),
-                      onPressed: () {},
+                      onPressed: () {
+                        singInGoogle();
+                      },
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(kLightColor),
                       ),
@@ -170,7 +184,10 @@ class SignUp extends StatelessWidget {
                       height: 50,
                       width: 150,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          singUpWithFirebase(emailController,
+                              passwordController, context, formKey);
+                        },
                         child: const Text('Sing In'),
                       ),
                     ),
@@ -189,6 +206,6 @@ class SignUp extends StatelessWidget {
           ),
         ],
       ),
-    );
+    ));
   }
 }

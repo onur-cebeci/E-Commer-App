@@ -4,14 +4,13 @@ import 'package:flutter/material.dart';
 
 late final FirebaseAuth _auth = FirebaseAuth.instance;
 
-Future<void> singIn(TextEditingController emailController,
+Future<void> singInWithFirebase(TextEditingController emailController,
     TextEditingController passwordController, BuildContext context) async {
-  String emailAnswerText = 'email_or_password_false';
+  String emailAnswerText = 'Email or Password false!!';
   final snackBar = SnackBar(
     content: Text(
       emailAnswerText,
-      style: const TextStyle(
-          fontSize: 16, fontWeight: FontWeight.w400, color: Colors.white),
+      style: Theme.of(context).textTheme.headline4,
     ),
     backgroundColor: kPrimaryColor,
   );

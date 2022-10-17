@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:e_commer/model/products_model.dart';
+import 'package:e_commer/models/products_model.dart';
 import 'package:flutter/services.dart' as rootBundle;
 
 class CategoryApi {
