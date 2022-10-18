@@ -1,6 +1,7 @@
 import 'package:e_commer/constant.dart';
 import 'package:e_commer/firebase_auth/sign_in_auth.dart';
 import 'package:e_commer/firebase_auth/socials_auth.dart';
+import 'package:e_commer/screens/login_screen/reset_password_page.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatelessWidget {
@@ -107,7 +108,8 @@ class SignIn extends StatelessWidget {
                       )),
               const SizedBox(height: mediumPadding),
               Padding(
-                padding: const EdgeInsets.all(mediumPadding),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: mediumPadding, vertical: smallPadding),
                 child: TextFormField(
                   controller: emailController,
                   keyboardType: TextInputType.emailAddress,
@@ -131,40 +133,61 @@ class SignIn extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(20)))),
                 ),
               ),
+              SizedBox(
+                height: 50,
+                width: 150,
+                child: ElevatedButton(
+                  onPressed: () {
+                    singInWithFirebase(
+                        emailController, passwordController, context);
+                  },
+                  child: const Text('Sing In'),
+                ),
+              ),
               Padding(
-                padding: const EdgeInsets.all(mediumPadding),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: mediumPadding, vertical: largePadding),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    ElevatedButton(
-                      child: Image.asset('assets/icons/google.png'),
-                      onPressed: () {
-                        singInGoogle();
-                      },
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(kLightColor),
-                      ),
-                    ),
-                    const Spacer(),
                     SizedBox(
-                      height: 50,
+                      height: 45,
                       width: 150,
                       child: ElevatedButton(
+                        child: Image.asset('assets/icons/google.png'),
                         onPressed: () {
-                          singInWithFirebase(
-                              emailController, passwordController, context);
+                          singInGoogle();
                         },
-                        child: const Text('Sing In'),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(kLightColor),
+                        ),
                       ),
                     ),
-                    const Spacer(),
-                    ElevatedButton(
-                      child: Image.asset('assets/icons/facebook.png'),
-                      onPressed: () {},
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(kLightColor),
+                    SizedBox(
+                      height: 45,
+                      width: 150,
+                      child: ElevatedButton(
+                        child: const Text('Reset Password'),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            PageRouteBuilder(
+                                transitionDuration:
+                                    const Duration(milliseconds: 650),
+                                pageBuilder: (context, animation, _) {
+                                  return FadeTransition(
+                                    opacity: animation,
+                                    child: const ResetPasswordPage(),
+                                  );
+                                }),
+                          );
+                        },
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(kLightColor),
+                        ),
                       ),
-                    ),
+                    )
                   ],
                 ),
               ),

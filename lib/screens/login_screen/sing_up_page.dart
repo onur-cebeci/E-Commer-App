@@ -1,6 +1,5 @@
 import 'package:e_commer/constant.dart';
 import 'package:e_commer/firebase_auth/sign_up_auth.dart';
-import 'package:e_commer/firebase_auth/socials_auth.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
@@ -167,39 +166,16 @@ class SignUp extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(
                     horizontal: mediumPadding, vertical: smallPadding),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ElevatedButton(
-                      child: Image.asset('assets/icons/google.png'),
-                      onPressed: () {
-                        singInGoogle();
-                      },
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(kLightColor),
-                      ),
-                    ),
-                    const Spacer(),
-                    SizedBox(
-                      height: 50,
-                      width: 150,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          singUpWithFirebase(emailController,
-                              passwordController, context, formKey);
-                        },
-                        child: const Text('Sing In'),
-                      ),
-                    ),
-                    const Spacer(),
-                    ElevatedButton(
-                      child: Image.asset('assets/icons/facebook.png'),
-                      onPressed: () {},
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(kLightColor),
-                      ),
-                    ),
-                  ],
+                child: SizedBox(
+                  height: 50,
+                  width: 150,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      singUpWithFirebase(emailController, passwordController,
+                          context, formKey);
+                    },
+                    child: const Text('Sing In'),
+                  ),
                 ),
               ),
             ],
