@@ -1,0 +1,141 @@
+import 'package:e_commer/constant.dart';
+import 'package:e_commer/data/products_data.dart';
+import 'package:e_commer/models/products_model.dart';
+import 'package:flutter/material.dart';
+
+class ProductsListWidget extends StatelessWidget {
+  const ProductsListWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Container(
+      height: size.height,
+      padding: const EdgeInsets.only(top: smallPadding),
+      child: FutureBuilder(
+        future: ProductsApi().readProdutcsJsonData(),
+        builder: (context, data) {
+          if (data.hasError) {
+            return Center(
+              child: Text("${data.error}"),
+            );
+          } else if (data.hasData) {
+            var productsList = data.data as List<Products>;
+            return GridView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: smallPadding),
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 250,
+                    childAspectRatio: 1,
+                    crossAxisSpacing: 10,
+                    mainAxisExtent: 300,
+                    mainAxisSpacing: 10),
+                itemCount: productsList.length,
+                itemBuilder: (_, index) {
+                  final listIndex = productsList[index];
+                  return ProductListBodyWidget(
+                    listIndex: listIndex,
+                  );
+                });
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
+    );
+  }
+}
+
+class ProductListBodyWidget extends StatelessWidget {
+  const ProductListBodyWidget({Key? key, required this.listIndex})
+      : super(key: key);
+
+  final Products listIndex;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(boxShadow: [
+        BoxShadow(
+            color: kLightColor,
+            blurRadius: 3,
+            spreadRadius: 1,
+            blurStyle: BlurStyle.outer)
+      ]),
+      child: Column(
+        children: [
+          CustomImageWidget(listIndex: listIndex),
+          const Spacer(),
+          Text(
+            listIndex.modelName.toString(),
+            style: Theme.of(context)
+                .textTheme
+                .headline4!
+                .copyWith(color: Colors.black),
+          ),
+          Text(
+            listIndex.productType.toString(),
+            style: Theme.of(context)
+                .textTheme
+                .headline5!
+                .copyWith(color: Colors.black),
+            textAlign: TextAlign.start,
+          ),
+          const Spacer(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                "${listIndex.value.toString()}\$",
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4!
+                    .copyWith(color: kPrimaryColor),
+              ),
+              const SizedBox(
+                width: mediumPadding,
+              )
+            ],
+          ),
+          const Spacer(),
+        ],
+      ),
+    );
+  }
+}
+
+class CustomImageWidget extends StatelessWidget {
+  const CustomImageWidget({
+    Key? key,
+    required this.listIndex,
+  }) : super(key: key);
+
+  final Products listIndex;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          height: 180,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage(listIndex.img![0]),
+            ),
+          ),
+        ),
+        Positioned(
+            top: 5,
+            right: 5,
+            child: InkWell(
+              onTap: () {},
+              child: Icon(
+                Icons.favorite,
+                color: Colors.red[500],
+              ),
+            )),
+      ],
+    );
+  }
+}

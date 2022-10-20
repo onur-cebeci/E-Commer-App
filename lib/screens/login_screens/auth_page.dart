@@ -1,8 +1,10 @@
-import 'package:e_commer/screens/login_screen/sing_in_page.dart';
-import 'package:e_commer/screens/login_screen/sing_up_page.dart';
+import 'package:e_commer/screens/login_screens/sing_in_page.dart';
+import 'package:e_commer/screens/login_screens/sing_up_page.dart';
 import 'package:flutter/material.dart';
 
 class AuthPage extends StatefulWidget {
+  const AuthPage({Key? key}) : super(key: key);
+
   @override
   State<AuthPage> createState() => _AuthPageState();
 }

@@ -3,416 +3,416 @@
     "model_name": "ALVINE",
     "category" : "Sheer",
     "product_type" :"sheer curtains,1 pair, off-white",
-"img" : "",
+"img" : ["assets/images/ALVINE.jpg"],
      "value" :"78",
     "number": "5",
     "color":"white",
     "product_Id" : 1,
     "family_ID" : [
-2,3,4
+"2,3,4"
     ]
   },
   {
     "model_name": "BYMOTT",
     "category" : "Sheer",
     "product_type" :"background curtain,1 pair, white/beige striped",
-    "img" : [],
+    "img" :  ["assets/images/BYMOTT.jpg"],
     "value" :"60",
     "number": "5",
     "color":"beige",
     "product_Id" : 2,
     "family_ID" : [
-1,3,4
+"1,3,4"
     ]
   },
   {
     "model_name": "ANNAKAJSA",
     "category" : "Sheer",
     "product_type" :"background curtain,1 pair, white/beige striped",
-    "img" : [],
+    "img" :  ["assets/images/ANNAKAJSA.jpg"],
     "value" :"82",
     "number": "5",
     "color":"black",
     "product_Id" : 3,
     "family_ID" : [
-      1,2,4,5
+      "1,2,4,5"
     ]
   },
   {
     "model_name": "HILLEBORG",
     "category" : "Sheer",
     "product_type" :"background curtain,1 pair, white/beige striped",
-    "img" : [],
+    "img" :  ["assets/images/HILLEBORG.jpg"],
     "value" :"90",
     "number": "5",
     "color":"green",
     "product_Id" : 4,
     "family_ID" : [
-      1,2,3,5
+      "1,2,3,5"
     ]
   },
   {
     "model_name": "ROSENMOTT",
     "category" : "Sheer",
     "product_type" :"blackout curtain,1 pair, black/floral patterned",
-    "img" : [],
+    "img" :  ["assets/images/ROSENMOTT.jpg"],
     "value" :"200",
     "number": "5",
     "color":"black",
     "product_Id" : 5,
     "family_ID" : [
-      1,2,3,4
+     "1,2,3,4"
     ]
   },
   {
     "model_name": "EKTORP",
     "category" : "Seat",
     "product_type" :"2-seat sofa, totebo light beige",
-    "img" : [],
+    "img" :  ["assets/images/EKTORP_1.jpg","assets/images/EKTORP_2.jpg"],
     "value" :"3.895",
     "number": "2",
     "color":"beige",
     "product_Id" : 6,
     "family_ID" : [
-      7,8,9,10
+     "7,8,9,10"
     ]
   },
   {
     "model_name": "EKTORP",
     "category" : "Seat",
     "product_type" :"3-seat sofa, Hallarp grey",
-    "img" : [],
+    "img" :  ["assets/images/EKTORP_3lu.jpg"],
     "value" :"5.895",
     "number": "2",
     "color":"grey",
     "product_Id" : 7,
     "family_ID" : [
-      6,8,9,10
+      "6,8,9,10"
     ]
   },
   {
     "model_name": "FRIHETEN",
     "category" : "Seat",
     "product_type" :"corner sofa-bed, skiftebo dark blue",
-    "img" : [],
+    "img" :  ["assets/images/friheten.jpg"],
     "value" :"8.360",
     "number": "1",
     "color":"blue",
     "product_Id" : 8,
     "family_ID" : [
-      6,7,9,10
+      "6,7,9,10"
     ]
   },
   {
     "model_name": "KIVIK",
     "category" : "Seat",
     "product_type" :"3-seat sofa and chaise longue, kelinge grey/turquoise",
-    "img" : [],
+    "img" :  ["assets/images/kıvık.jpg","assets/images/kıvık_2.jpg"],
     "value" :"9.100",
     "number": "2",
     "color":"green",
     "product_Id" : 9,
     "family_ID" : [
-      6,8,7,10
+      "6,8,7,10"
     ]
   },
   {
     "model_name": "LINANAS",
     "category" : "Seat",
     "product_type" :"3-seat sofa, vissle beige",
-    "img" : [],
+    "img" :  ["assets/images/linanas.jpg"],
     "value" :"3.200",
     "number": "6",
     "color":"beige",
     "product_Id" : 10,
     "family_ID" : [
-      6,7,8,9
+      "6,7,8,9"
     ]
   },
   {
     "model_name": "EBBATILDA",
     "category" : "Cushion",
     "product_type" :"cushion cover, light grey-green",
-    "img" : [],
+    "img" :  ["assets/images/ebbatilda.jpg"],
     "value" :"44.99",
     "number": "12",
     "color":"green",
     "product_Id" : 11,
     "family_ID" : [
-12,13,14
+"12,13,14"
     ]
   },
   {
     "model_name": "GUMPSPİNNARE",
     "category" : "Cushion",
     "product_type" :"cushion cover, multicolour/patterned",
-    "img" : [],
+    "img" :  ["assets/images/gumpspinnare.jpg"],
     "value" :"59.99",
     "number": "16",
     "color":"beige",
     "product_Id" : 12,
     "family_ID" : [
-11,13,14
+"11,13,14"
     ]
   },
   {
     "model_name": "INGERILSE",
     "category" : "Cushion",
     "product_type" :"cushion cover, blue/red",
-    "img" : [],
+    "img" :  ["assets/images/Ingerılse.jpg"],
     "value" :"99",
     "number": "4",
     "color":"blue",
     "product_Id" : 13,
     "family_ID" : [
-11,12,14
+"11,12,14"
     ]
   },
   {
     "model_name": "MALINMARIA",
     "category" : "Cushion",
     "product_type" :"cushion, dark grey/dotted",
-    "img" : [],
+    "img" :  ["assets/images/malinmaria.jpg"],
     "value" :"59.99",
     "number": "8",
     "color":"black",
     "product_Id" : 14,
     "family_ID" : [
-      11,12,14
+      "11,12,14"
     ]
   },
   {
     "model_name": "BONDTOLVAN",
     "category" : "Wall Clock,",
     "product_type" :"wall clock, pink/grey",
-    "img" : [],
+    "img" :  ["assets/images/bondtolvan.jpg"],
     "value" :"159.99",
     "number": "2",
     "color":"grey",
     "product_Id" : 15,
     "family_ID" : [
-    16
+    "16"
     ]
   },
   {
     "model_name": "MALLHOPPA",
     "category" : "Wall Clock,",
     "product_type" :"wall clock, silver-colour",
-    "img" : [],
+    "img" :  ["assets/images/mallhoppa.jpg"],
     "value" :"245.99",
     "number": "3",
     "color":"blueGrey",
     "product_Id" : 16,
     "family_ID" : [
-     15
+     "15"
     ]
   },
   {
     "model_name": "FJALLBO",
     "category" : "Coffee Table",
     "product_type" :"coffee table, black",
-    "img" : [],
+    "img" :  ["assets/images/fjallbo.jpg"],
     "value" :"790",
     "number": "1",
     "color":"black",
     "product_Id" : 17,
     "family_ID" : [
-      18,19
+      "18,19"
     ]
   },
   {
     "model_name": "KRAGSTA",
     "category" : "Coffee Table",
     "product_type" :"side table set, white",
-    "img" : [],
+    "img" :  ["assets/images/kragsta.jpg"],
     "value" :"586.79",
     "number": "5",
     "color":"white",
     "product_Id" : 18,
     "family_ID" : [
-      17,19,20
+      "17,19,20"
     ]
   },
   {
     "model_name": "LÖVBACKEN",
     "category" : "Coffee Table",
     "product_type" :"coffee table, brown",
-    "img" : [],
+    "img" :  ["assets/images/lövbacken.jpg"],
     "value" :"385",
     "number": "8",
     "color":"brown",
     "product_Id" : 19,
     "family_ID" : [
-      17,18,20
+      "17,18,20"
     ]
   },
   {
     "model_name": "TOFTERYD",
     "category" : "Coffee Table",
     "product_type" :"coffee table, high-gloss black",
-    "img" : [],
+    "img" :  ["assets/images/tofteryd.jpg"],
     "value" :"1490.80",
     "number": "3",
     "color":"black",
     "product_Id" : 20,
     "family_ID" : [
-      17,18,19
+      "17,18,19"
     ]
   },
   {
     "model_name": "GRADVIS",
     "category" : "Vase",
     "product_type" :"vase, pink",
-    "img" : [],
+    "img" :  ["assets/images/GRADVIS.jpg"],
     "value" :"110",
     "number": "4",
     "color":"pink",
     "product_Id" : 21,
     "family_ID" : [
-
+""
     ]
   },
   {
     "model_name": "SATSUMAS",
     "category" : "plant stand",
     "product_type" :"plant stand, bamboo/white",
-    "img" : [],
+    "img" :  ["assets/images/satsumas.jpg"],
     "value" :"348.59",
     "number": "7",
     "color":"white",
     "product_Id" : 22,
     "family_ID" : [
-
+""
     ]
   },
   {
     "model_name": "STARKT",
     "category" : "plant stand",
     "product_type" :"decoration greenhouse, white",
-    "img" : [],
+    "img" :  ["assets/images/starkt.jpg"],
     "value" :"60",
     "number": "16",
     "color":"white",
     "product_Id" : 23,
     "family_ID" : [
-
+""
     ]
   },
   {
     "model_name": "TONSATTA",
     "category" : "Vase",
     "product_type" :"vase, grey",
-    "img" : [],
+    "img" :  ["assets/images/TONSATTA.jpg"],
     "value" :"310",
     "number": "6",
     "color":"grey",
     "product_Id" : 24,
     "family_ID" : [
-
+""
     ]
   },
   {
     "model_name": "BJÖRKSTA",
     "category" : "Picture",
     "product_type" :"picture with frame, multicolour",
-    "img" : [],
+    "img" :  ["assets/images/bjorksta.jpg"],
     "value" :"540",
     "number": "5",
     "color":"black",
     "product_Id" : 25,
     "family_ID" : [
-
+""
     ]
   },
   {
     "model_name": "PRAJTTERYD",
     "category" : "Picture",
     "product_type" :"picture with frame, multicolour",
-    "img" : [],
+    "img" :  ["assets/images/prajtteryd.jpg"],
     "value" :"520",
     "number": "3",
     "color":"black",
     "product_Id" : 26,
     "family_ID" : [
-
+""
     ]
   },
   {
     "model_name": "PLUGGLAND",
     "category" : "Board",
     "product_type" :"memo board, black",
-    "img" : [],
+    "img" :  ["assets/images/Pluggland.jpg"],
     "value" :"69.99",
     "number": "18",
     "color":"black",
     "product_Id" : 27,
     "family_ID" : [
-
+""
     ]
   },
   {
     "model_name": "MARKUS",
     "category" : "Office chair",
     "product_type" :"office chair, vissle dark grey",
-    "img" : [],
+    "img" :  ["assets/images/markus.jpg"],
     "value" :"2269.99",
     "number": "6",
     "color":"black",
     "product_Id" : 28,
     "family_ID" : [
-
+""
     ]
   },
   {
     "model_name": "HEMNES",
     "category" : "Cabinet",
     "product_type" :"glass-door cabinet, Red stained-light brown stained",
-    "img" : [],
+    "img" :  ["assets/images/hemnes.jpg"],
     "value" :"3976",
     "number": "4",
     "color":"red",
     "product_Id" : 29,
     "family_ID" : [
-
+""
     ]
   },
   {
     "model_name": "IDANAS",
     "category" : "Cabinet",
     "product_type" :"cabinet with doors, white",
-    "img" : [],
+    "img" :  ["assets/images/idanas.jpg"],
     "value" :"2685",
     "number": "6",
     "color":"white",
     "product_Id" : 30,
     "family_ID" : [
-
+""
     ]
   },
   {
     "model_name": "MALSJÖ",
     "category" : "Cabinet",
     "product_type" :"glass-door cabinet, black",
-    "img" : [],
+    "img" :  ["assets/images/malsjö.jpg","assets/images/malsjö_2.jpg"],
     "value" :"4100",
     "number": "1",
     "color":"black",
     "product_Id" : 31,
     "family_ID" : [
-
+""
     ]
   },
   {
     "model_name": "FALHOLMEN",
     "category" : "Table",
     "product_type" :"dining table and chairs, light brown",
-    "img" : [],
+    "img" :  ["assets/images/FALHOLMEN.jpg"],
     "value" :"3800",
     "number": "3",
     "color":"brown",
     "product_Id" : 32,
     "family_ID" : [
-
+""
     ]
   }
 ]

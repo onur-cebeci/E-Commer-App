@@ -1,6 +1,6 @@
 import 'package:e_commer/constant.dart';
 import 'package:e_commer/firebase_options.dart';
-import 'package:e_commer/screens/login_screen/login_home_page.dart';
+import 'package:e_commer/screens/login_screens/login_home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -40,6 +40,10 @@ class MyApp extends StatelessWidget {
               fontFamily: "Serif"),
           headline4:
               TextStyle(color: kSecondColor, fontSize: 18, fontFamily: "Serif"),
+          headline5: TextStyle(
+            color: kSecondColor,
+            fontSize: 14,
+          ),
         ),
       ),
       home: const LoginHomePage(),
