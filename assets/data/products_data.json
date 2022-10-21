@@ -183,7 +183,7 @@
   },
   {
     "model_name": "BONDTOLVAN",
-    "category" : "Wall Clock,",
+    "category" : "Wall Clock",
     "product_type" :"wall clock, pink/grey",
     "img" :  ["assets/images/bondtolvan.jpg"],
     "value" :"159.99",
@@ -196,7 +196,7 @@
   },
   {
     "model_name": "MALLHOPPA",
-    "category" : "Wall Clock,",
+    "category" : "Wall Clock",
     "product_type" :"wall clock, silver-colour",
     "img" :  ["assets/images/mallhoppa.jpg"],
     "value" :"245.99",
@@ -274,7 +274,7 @@
   },
   {
     "model_name": "SATSUMAS",
-    "category" : "plant stand",
+    "category" : "Plant Stand",
     "product_type" :"plant stand, bamboo/white",
     "img" :  ["assets/images/satsumas.jpg"],
     "value" :"348.59",
@@ -287,7 +287,7 @@
   },
   {
     "model_name": "STARKT",
-    "category" : "plant stand",
+    "category" : "Plant Stand",
     "product_type" :"decoration greenhouse, white",
     "img" :  ["assets/images/starkt.jpg"],
     "value" :"60",
@@ -352,7 +352,7 @@
   },
   {
     "model_name": "MARKUS",
-    "category" : "Office chair",
+    "category" : "Office Chair",
     "product_type" :"office chair, vissle dark grey",
     "img" :  ["assets/images/markus.jpg"],
     "value" :"2269.99",
