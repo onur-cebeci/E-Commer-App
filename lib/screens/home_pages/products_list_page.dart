@@ -73,18 +73,49 @@ class ProductListBodyWidget extends StatelessWidget {
                 .headline4!
                 .copyWith(color: Colors.black),
           ),
-          Text(
-            listIndex.productType.toString(),
-            style: Theme.of(context)
-                .textTheme
-                .headline5!
-                .copyWith(color: Colors.black),
-            textAlign: TextAlign.start,
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 5),
+            child: Text(
+              listIndex.productType.toString(),
+              style: Theme.of(context)
+                  .textTheme
+                  .headline5!
+                  .copyWith(color: Colors.black),
+              textAlign: TextAlign.start,
+            ),
           ),
           const Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              const SizedBox(width: 5),
+              Container(
+                height: 40,
+                width: 100,
+                decoration: BoxDecoration(
+                    color: kLightColor,
+                    borderRadius: BorderRadius.circular(14)),
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      child: Text(
+                        'Add to basket',
+                        style: Theme.of(context).textTheme.headline5!.copyWith(
+                            color: Colors.white, fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    const Icon(
+                      Icons.shopping_basket_rounded,
+                      size: 18,
+                    )
+                  ],
+                ),
+              ),
+              const Spacer(),
               Text(
                 "${listIndex.value.toString()}\$",
                 style: Theme.of(context)
@@ -93,7 +124,7 @@ class ProductListBodyWidget extends StatelessWidget {
                     .copyWith(color: kPrimaryColor),
               ),
               const SizedBox(
-                width: mediumPadding,
+                width: 5,
               )
             ],
           ),
