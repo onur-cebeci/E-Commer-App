@@ -1,6 +1,7 @@
 import 'package:e_commer/constant.dart';
 import 'package:e_commer/data/products_data.dart';
 import 'package:e_commer/models/products_model.dart';
+import 'package:e_commer/screens/products_details_pages/details_page.dart';
 import 'package:flutter/material.dart';
 
 class ProductsListWidget extends StatelessWidget {
@@ -54,82 +55,113 @@ class ProductListBodyWidget extends StatelessWidget {
   final Products listIndex;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(boxShadow: [
-        BoxShadow(
-            color: kLightColor,
-            blurRadius: 3,
-            spreadRadius: 1,
-            blurStyle: BlurStyle.outer)
-      ]),
-      child: Column(
-        children: [
-          CustomImageWidget(listIndex: listIndex),
-          const Spacer(),
-          Text(
-            listIndex.modelName.toString(),
-            style: Theme.of(context)
-                .textTheme
-                .headline4!
-                .copyWith(color: Colors.black),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5),
-            child: Text(
-              listIndex.productType.toString(),
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(
+          PageRouteBuilder(
+              transitionDuration: const Duration(milliseconds: 650),
+              pageBuilder: (context, animation, _) {
+                return FadeTransition(
+                  opacity: animation,
+                  child: DetailsPage(
+                    product: listIndex,
+                  ),
+                );
+              }),
+        );
+      },
+      child: Container(
+        decoration: const BoxDecoration(boxShadow: [
+          BoxShadow(
+              color: kLightColor,
+              blurRadius: 3,
+              spreadRadius: 1,
+              blurStyle: BlurStyle.outer)
+        ]),
+        child: Column(
+          children: [
+            CustomImageWidget(listIndex: listIndex),
+            const Spacer(),
+            Text(
+              listIndex.modelName.toString(),
               style: Theme.of(context)
                   .textTheme
-                  .headline5!
+                  .headline4!
                   .copyWith(color: Colors.black),
-              textAlign: TextAlign.start,
             ),
-          ),
-          const Spacer(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              const SizedBox(width: 5),
-              Container(
-                height: 40,
-                width: 100,
-                decoration: BoxDecoration(
-                    color: kLightColor,
-                    borderRadius: BorderRadius.circular(14)),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 5),
-                      child: Text(
-                        'Add to basket',
-                        style: Theme.of(context).textTheme.headline5!.copyWith(
-                            color: Colors.white, fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                    const Icon(
-                      Icons.shopping_basket_rounded,
-                      size: 18,
-                    )
-                  ],
-                ),
-              ),
-              const Spacer(),
-              Text(
-                "${listIndex.value.toString()}\$",
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 5),
+              child: Text(
+                listIndex.productType.toString(),
                 style: Theme.of(context)
                     .textTheme
-                    .headline4!
-                    .copyWith(color: kPrimaryColor),
+                    .headline5!
+                    .copyWith(color: Colors.black),
+                textAlign: TextAlign.start,
               ),
-              const SizedBox(
-                width: 5,
-              )
-            ],
-          ),
-          const Spacer(),
-        ],
+            ),
+            const Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const SizedBox(width: 5),
+                Container(
+                  height: 40,
+                  width: 100,
+                  decoration: BoxDecoration(
+                      color: kLightColor,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 5),
+                        child: Text(
+                          'Add to Basket',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline5!
+                              .copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                      const Icon(
+                        Icons.shopping_basket_rounded,
+                        size: 18,
+                      )
+                    ],
+                  ),
+                ),
+                const Spacer(),
+                RichText(
+                  text: TextSpan(children: [
+                    TextSpan(
+                      text: "\$",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4!
+                          .copyWith(color: Colors.green[900]),
+                    ),
+                    TextSpan(
+                      text: listIndex.value.toString(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4!
+                          .copyWith(color: kPrimaryColor),
+                    ),
+                  ]),
+                ),
+                const SizedBox(
+                  width: 5,
+                )
+              ],
+            ),
+            const Spacer(),
+          ],
+        ),
       ),
     );
   }
