@@ -160,14 +160,12 @@ class RandomImageWidget extends StatelessWidget {
                                   color: kPrimaryColor,
                                   width: 0.5,
                                 ),
-                                right: BorderSide(
-                                    color: kPrimaryColor, width: 0.5),
                               ),
                               image: DecorationImage(
                                 image: AssetImage(
                                   listIndex.img![0],
                                 ),
-                                fit: BoxFit.fitHeight,
+                                fit: BoxFit.cover,
                               ),
                             ),
                             child: Column(
@@ -218,7 +216,7 @@ class CustomNavigationBarWidget extends StatelessWidget {
     return Container(
       height: size.height / 13,
       decoration: const BoxDecoration(
-          color: kLightColor,
+          color: kPrimaryColor,
           shape: BoxShape.rectangle,
           boxShadow: [
             BoxShadow(
@@ -234,7 +232,7 @@ class CustomNavigationBarWidget extends StatelessWidget {
           InkWell(
             onTap: () {
               controller.jumpToPage(0);
-              print(controller.page);
+
               Provider.of<BottomNavigatorWidgetProvider>(context, listen: false)
                   .homePageIcon(true);
               Provider.of<BottomNavigatorWidgetProvider>(context, listen: false)
@@ -245,7 +243,7 @@ class CustomNavigationBarWidget extends StatelessWidget {
           InkWell(
             onTap: () {
               controller.jumpToPage(1);
-              print(controller.page);
+
               Provider.of<BottomNavigatorWidgetProvider>(context, listen: false)
                   .homePageIcon(false);
               Provider.of<BottomNavigatorWidgetProvider>(context, listen: false)
@@ -311,6 +309,7 @@ class _HomePageImageSliderState extends State<HomePageImageSlider> {
     Size size = MediaQuery.of(context).size;
     return SizedBox(
       height: size.height / 3.5,
+
       child: PageView(
         controller: _controller,
         physics: const PageScrollPhysics(),
@@ -404,11 +403,11 @@ class CategoriesMenuWidget extends StatelessWidget {
           height: size.height / 5,
           child: GridView.builder(
               padding: const EdgeInsets.only(top: mediumPadding),
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 70,
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: size.width < 1000 ? 70 : 110,
                   childAspectRatio: 1,
                   crossAxisSpacing: 5,
-                  mainAxisExtent: 50,
+                  mainAxisExtent: size.width < 800 ? 50 : 90,
                   mainAxisSpacing: 10),
               itemCount: categoryList.length,
               itemBuilder: (_, index) {

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class BottomNavigatorWidgetProvider extends ChangeNotifier {
   late Icon homeIcon = const Icon(
     Icons.home,
-    color: kPrimaryColor,
+    color: kSecondColor,
     size: 30,
   );
   late Icon categoryIcon = const Icon(Icons.category_outlined);
@@ -15,7 +15,7 @@ class BottomNavigatorWidgetProvider extends ChangeNotifier {
     if (toggle == true) {
       homeIcon = const Icon(
         Icons.home,
-        color: kPrimaryColor,
+        color: kSecondColor,
         size: 30,
       );
     } else {
@@ -30,7 +30,7 @@ class BottomNavigatorWidgetProvider extends ChangeNotifier {
     if (toggle == true) {
       categoryIcon = const Icon(
         Icons.category,
-        color: kPrimaryColor,
+        color: kSecondColor,
         size: 30,
       );
     } else {

@@ -167,15 +167,23 @@ class ProductListBodyWidget extends StatelessWidget {
   }
 }
 
-class CustomImageWidget extends StatelessWidget {
+class CustomImageWidget extends StatefulWidget {
   const CustomImageWidget({
     Key? key,
     required this.listIndex,
   }) : super(key: key);
 
   final Products listIndex;
-
   @override
+  State<CustomImageWidget> createState() => _CustomImageWidgetState();
+}
+
+@override
+class _CustomImageWidgetState extends State<CustomImageWidget> {
+  Icon icon = Icon(
+    Icons.favorite_outline_outlined,
+    color: Colors.red[500],
+  );
   Widget build(BuildContext context) {
     return Stack(
       children: [
@@ -184,7 +192,7 @@ class CustomImageWidget extends StatelessWidget {
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage(listIndex.img![0]),
+              image: AssetImage(widget.listIndex.img![0]),
             ),
           ),
         ),
@@ -192,12 +200,15 @@ class CustomImageWidget extends StatelessWidget {
             top: 5,
             right: 5,
             child: InkWell(
-              onTap: () {},
-              child: Icon(
-                Icons.favorite,
-                color: Colors.red[500],
-              ),
-            )),
+                onTap: () {
+                  setState(() {
+                    icon = Icon(
+                      Icons.favorite,
+                      color: Colors.red[500],
+                    );
+                  });
+                },
+                child: icon)),
       ],
     );
   }
