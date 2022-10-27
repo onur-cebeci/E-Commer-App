@@ -1,5 +1,5 @@
-import 'package:e_commer/screens/login_screen/auth_page.dart';
-import 'package:e_commer/screens/login_screen/verify_email.page.dart';
+import 'package:e_commer/screens/login_screens/auth_page.dart';
+import 'package:e_commer/screens/login_screens/verify_email.page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +21,7 @@ class LoginHomePage extends StatelessWidget {
           } else if (snapshot.hasData) {
             return const VerifyEmailPage();
           } else {
-            return AuthPage();
+            return const AuthPage();
           }
         },
       ),

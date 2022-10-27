@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:e_commer/constant.dart';
-import 'package:e_commer/screens/home_page.dart';
+import 'package:e_commer/screens/home_pages/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

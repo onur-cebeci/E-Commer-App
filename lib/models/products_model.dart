@@ -1,10 +1,12 @@
+// To parse this JSON data, do
+//
+//     final products = productsFromMap(jsonString);
+
 import 'dart:convert';
 
-List<Products> productsFromMap(String str) =>
-    List<Products>.from(json.decode(str).map((x) => Products.fromMap(x)));
+Products productsFromMap(String str) => Products.fromMap(json.decode(str));
 
-String productsToMap(List<Products> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toMap())));
+String productsToMap(Products data) => json.encode(data.toMap());
 
 class Products {
   Products({
@@ -22,34 +24,40 @@ class Products {
   final String modelName;
   final String category;
   final String productType;
-  final String img;
+  final List<String>? img;
   final String value;
   final String number;
   final String color;
   final int productId;
-  final List<int> familyId;
+  final List<String>? familyId;
 
   factory Products.fromMap(Map<String, dynamic> json) => Products(
-        modelName: json["model_name"],
-        category: json["category"],
-        productType: json["product_type"],
-        img: json["img"],
-        value: json["value"],
-        number: json["number"],
-        color: json["color"],
-        productId: json["product_Id"],
-        familyId: List<int>.from(json["family_ID"].map((x) => x)),
+        modelName: json["model_name"] == null ? null : json["model_name"],
+        category: json["category"] == null ? null : json["category"],
+        productType: json["product_type"] == null ? null : json["product_type"],
+        img: json["img"] == null
+            ? null
+            : List<String>.from(json["img"].map((x) => x)),
+        value: json["value"] == null ? null : json["value"],
+        number: json["number"] == null ? null : json["number"],
+        color: json["color"] == null ? null : json["color"],
+        productId: json["product_Id"] == null ? null : json["product_Id"],
+        familyId: json["family_ID"] == null
+            ? null
+            : List<String>.from(json["family_ID"].map((x) => x)),
       );
 
   Map<String, dynamic> toMap() => {
-        "model_name": modelName,
-        "category": category,
-        "product_type": productType,
-        "img": img,
-        "value": value,
-        "number": number,
-        "color": color,
-        "product_Id": productId,
-        "family_ID": List<dynamic>.from(familyId.map((x) => x)),
+        "model_name": modelName == null ? null : modelName,
+        "category": category == null ? null : category,
+        "product_type": productType == null ? null : productType,
+        "img": img == null ? null : List<dynamic>.from(img!.map((x) => x)),
+        "value": value == null ? null : value,
+        "number": number == null ? null : number,
+        "color": color == null ? null : color,
+        "product_Id": productId == null ? null : productId,
+        "family_ID": familyId == null
+            ? null
+            : List<dynamic>.from(familyId!.map((x) => x)),
       };
 }
