@@ -1,0 +1,13 @@
+diff a/lib/models/user_model.dart b/lib/models/user_model.dart	(rejected hunks)
+@@ -0,0 +1,11 @@
++class User {
++  User({
++    required this.name,
++    required this.email,
++    required this.id,
++  });
++  final String name;
++  final String email;
++
++  final String id;
++}
