@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commer/constant.dart';
 import 'package:e_commer/data/products_data.dart';
 import 'package:e_commer/models/products_model.dart';
 import 'package:e_commer/screens/products_details_pages/details_page.dart';
+import 'package:e_commer/services/liked_products_service.dart';
 import 'package:flutter/material.dart';
 
 class ProductsListWidget extends StatelessWidget {
@@ -178,12 +180,18 @@ class CustomImageWidget extends StatefulWidget {
   State<CustomImageWidget> createState() => _CustomImageWidgetState();
 }
 
+bool iconChange = false;
+
 @override
 class _CustomImageWidgetState extends State<CustomImageWidget> {
   Icon icon = Icon(
     Icons.favorite_outline_outlined,
     color: Colors.red[500],
   );
+  CollectionReference likedlistRef = FirebaseFirestore.instance
+      .collection('users')
+      .doc('onurcebeciturgutlu@gmail.com')
+      .collection('likedProducts');
   Widget build(BuildContext context) {
     return Stack(
       children: [
@@ -200,13 +208,30 @@ class _CustomImageWidgetState extends State<CustomImageWidget> {
             top: 5,
             right: 5,
             child: InkWell(
-                onTap: () {
-                  setState(() {
+                onTap: () async {
+                  iconChange = !iconChange;
+                  if (iconChange == true) {
+                    updateLiked(
+                        email: 'onurcebeciturgutlu@gmail.com',
+                        name: widget.listIndex.modelName,
+                        img: widget.listIndex.img.toString(),
+                        number: widget.listIndex.number.toString(),
+                        value: widget.listIndex.value.toString());
                     icon = Icon(
                       Icons.favorite,
                       color: Colors.red[500],
                     );
-                  });
+                    print(iconChange.toString() + 'UPDAte');
+                  } else {
+                    icon = Icon(
+                      Icons.favorite_outline_outlined,
+                      color: Colors.red[500],
+                    );
+                    await deleteLiked(
+                      email: 'onurcebeciturgutlu@gmail.com',
+                    );
+                    print(iconChange.toString() + 'Delete');
+                  }
                 },
                 child: icon)),
       ],

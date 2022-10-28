@@ -1,6 +1,12 @@
 class User {
-  User({required this.id});
   final String id;
+  late List<String> likedProducts;
+  late List<String> basketList;
+
+  User(
+      {required this.basketList,
+      required this.likedProducts,
+      required this.id});
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -8,28 +14,7 @@ class User {
 
   static User fromJson(Map<String, dynamic> json) => User(
         id: json['id'],
+        likedProducts: json['likedProducts'],
+        basketList: json['boughtProducts'],
       );
 }
-/*
-class User {
-  User(
-      {this.id = '',
-      required this.likedProducts,
-      required this.boughtProducts});
-  late String id;
-
-  final List<Products> likedProducts;
-  final List<Products> boughtProducts;
-
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'likedProducts': likedProducts,
-        'boughtProducts': boughtProducts
-      };
-
-  static User fromJson(Map<String, dynamic> json) => User(
-      id: json['id'],
-      likedProducts: json['likedProducts'],
-      boughtProducts: json['boughtProducts']);
-}
- */
