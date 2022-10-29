@@ -1,5 +1,5 @@
 import 'package:e_commer/constant.dart';
-import 'package:e_commer/models/products_model.dart';
+import 'package:e_commer/models/api_services/products_model.dart';
 import 'package:e_commer/screens/home_pages/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +24,7 @@ class DetailsPage extends StatelessWidget {
               height: size.height / 2.5,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage(product.img![0]), fit: BoxFit.cover)),
+                      image: AssetImage(product.img), fit: BoxFit.cover)),
             ),
             const SizedBox(height: mediumPadding),
             Padding(

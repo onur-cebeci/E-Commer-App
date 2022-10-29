@@ -12,15 +12,21 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-        body: Form(
-      key: formKey,
-      child: Stack(
-        children: [
-          const BackgroundDesign(),
-          BodyWidget(onClicledSingUp: onClicledSingUp, formKey: formKey),
-        ],
+        body: SingleChildScrollView(
+      physics: const ClampingScrollPhysics(),
+      child: SizedBox(
+        height: size.height,
+        child: Form(
+          key: formKey,
+          child: Stack(
+            children: [
+              const BackgroundDesign(),
+              BodyWidget(onClicledSingUp: onClicledSingUp, formKey: formKey),
+            ],
+          ),
+        ),
       ),
     ));
   }

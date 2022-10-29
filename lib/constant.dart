@@ -24,3 +24,5 @@ const double smallPadding = 10;
 const double mediumPadding = 20;
 const double largePadding = 30;
 const double bigPadding = 40;
+
+const String email = 'onurcebeciturgutlu@gmail.com';

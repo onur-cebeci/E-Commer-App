@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:e_commer/constant.dart';
+import 'package:e_commer/models/api_services/products_model.dart';
 import 'package:e_commer/models/categories_model.dart';
-import 'package:e_commer/models/products_model.dart';
 import 'package:e_commer/providers/bottom_navigator_widget_provider.dart';
 import 'package:e_commer/screens/home_pages/products_list_page.dart';
+import 'package:e_commer/screens/liked_products_pages/liked_products_home_page.dart';
 import 'package:e_commer/screens/products_details_pages/details_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -45,14 +46,20 @@ class HomePage extends StatelessWidget {
             style: Theme.of(context).textTheme.headline2,
           ),
         ),
-        body: PageView(
-          controller: _pageViewController,
-          physics: const NeverScrollableScrollPhysics(),
-          children: const [
-            HomePageWidgets(),
-            ProductsListWidget(),
-          ],
-        ));
+        body: SingleChildScrollView(
+            physics: const ClampingScrollPhysics(),
+            child: SizedBox(
+              height: size.height - 130,
+              child: PageView(
+                controller: _pageViewController,
+                physics: const NeverScrollableScrollPhysics(),
+                children: const [
+                  HomePageWidgets(),
+                  ProductsListWidget(),
+                  LikedProductsHomePage(),
+                ],
+              ),
+            )));
   }
 }
 
@@ -117,7 +124,7 @@ class RandomImageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: (size.height / 3.1) / 1.4,
+        height: (size.height / 3.1) / 1.5,
         child: FutureBuilder(
           future: ProductsApi().readProdutcsJsonData(),
           builder: (context, data) {
@@ -163,7 +170,7 @@ class RandomImageWidget extends StatelessWidget {
                               ),
                               image: DecorationImage(
                                 image: AssetImage(
-                                  listIndex.img![0],
+                                  listIndex.img,
                                 ),
                                 fit: BoxFit.cover,
                               ),
@@ -214,7 +221,7 @@ class CustomNavigationBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: size.height / 13,
+      height: size.height / 12,
       decoration: const BoxDecoration(
           color: kPrimaryColor,
           shape: BoxShape.rectangle,
@@ -309,7 +316,6 @@ class _HomePageImageSliderState extends State<HomePageImageSlider> {
     Size size = MediaQuery.of(context).size;
     return SizedBox(
       height: size.height / 3.5,
-
       child: PageView(
         controller: _controller,
         physics: const PageScrollPhysics(),

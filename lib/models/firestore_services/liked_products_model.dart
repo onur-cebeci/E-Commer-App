@@ -1,10 +1,10 @@
-class LikedProducts {
+class LikedProductsModel {
   late String name;
   late String value;
   late String img;
   late String number;
 
-  LikedProducts(
+  LikedProductsModel(
       {required this.number,
       required this.img,
       required this.value,
@@ -13,7 +13,8 @@ class LikedProducts {
   Map<String, dynamic> toJson() =>
       {'name': name, 'value': value, 'image': img, 'number': number};
 
-  static LikedProducts fromJson(Map<String, dynamic> json) => LikedProducts(
+  static LikedProductsModel fromJson(Map<String, dynamic> json) =>
+      LikedProductsModel(
         name: json['name'],
         value: json['value'],
         img: json['image'],

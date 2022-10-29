@@ -1,10 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commer/constant.dart';
 import 'package:e_commer/data/products_data.dart';
-import 'package:e_commer/models/products_model.dart';
+import 'package:e_commer/models/api_services/products_model.dart';
+import 'package:e_commer/providers/liked_provider.dart';
 import 'package:e_commer/screens/products_details_pages/details_page.dart';
-import 'package:e_commer/services/liked_products_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductsListWidget extends StatelessWidget {
   const ProductsListWidget({Key? key}) : super(key: key);
@@ -20,7 +20,13 @@ class ProductsListWidget extends StatelessWidget {
         builder: (context, data) {
           if (data.hasError) {
             return Center(
-              child: Text("${data.error}"),
+              child: Text(
+                "Something Going Wrong",
+                style: Theme.of(context)
+                    .textTheme
+                    .headline3!
+                    .copyWith(color: Colors.red),
+              ),
             );
           } else if (data.hasData) {
             var productsList = data.data as List<Products>;
@@ -92,7 +98,7 @@ class ProductListBodyWidget extends StatelessWidget {
                   .copyWith(color: Colors.black),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Text(
                 listIndex.productType.toString(),
                 style: Theme.of(context)
@@ -119,7 +125,7 @@ class ProductListBodyWidget extends StatelessWidget {
                         height: 5,
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
                         child: Text(
                           'Add to Basket',
                           style: Theme.of(context)
@@ -180,19 +186,11 @@ class CustomImageWidget extends StatefulWidget {
   State<CustomImageWidget> createState() => _CustomImageWidgetState();
 }
 
-bool iconChange = false;
-
 @override
 class _CustomImageWidgetState extends State<CustomImageWidget> {
-  Icon icon = Icon(
-    Icons.favorite_outline_outlined,
-    color: Colors.red[500],
-  );
-  CollectionReference likedlistRef = FirebaseFirestore.instance
-      .collection('users')
-      .doc('onurcebeciturgutlu@gmail.com')
-      .collection('likedProducts');
   Widget build(BuildContext context) {
+    final iconState =
+        Provider.of<LikedProvider>(context, listen: false).iconState;
     return Stack(
       children: [
         Container(
@@ -200,7 +198,7 @@ class _CustomImageWidgetState extends State<CustomImageWidget> {
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage(widget.listIndex.img![0]),
+              image: AssetImage(widget.listIndex.img.toString()),
             ),
           ),
         ),
@@ -208,32 +206,33 @@ class _CustomImageWidgetState extends State<CustomImageWidget> {
             top: 5,
             right: 5,
             child: InkWell(
-                onTap: () async {
-                  iconChange = !iconChange;
-                  if (iconChange == true) {
-                    updateLiked(
-                        email: 'onurcebeciturgutlu@gmail.com',
-                        name: widget.listIndex.modelName,
-                        img: widget.listIndex.img.toString(),
-                        number: widget.listIndex.number.toString(),
-                        value: widget.listIndex.value.toString());
-                    icon = Icon(
-                      Icons.favorite,
-                      color: Colors.red[500],
-                    );
-                    print(iconChange.toString() + 'UPDAte');
-                  } else {
-                    icon = Icon(
-                      Icons.favorite_outline_outlined,
-                      color: Colors.red[500],
-                    );
-                    await deleteLiked(
-                      email: 'onurcebeciturgutlu@gmail.com',
-                    );
-                    print(iconChange.toString() + 'Delete');
-                  }
+                onTap: () {
+                  setState(() {
+                    if (iconState == false) {
+                      Provider.of<LikedProvider>(context, listen: false)
+                          .changeLikedIcon(
+                              !iconState,
+                              widget.listIndex.modelName,
+                              widget.listIndex.img,
+                              widget.listIndex.value,
+                              widget.listIndex.category,
+                              'onurcebeciturgutlu@gmail.com');
+                      print('$iconState' + ' 111111');
+                    } else {
+                      Provider.of<LikedProvider>(context, listen: false)
+                          .changeLikedIcon(
+                              !iconState,
+                              widget.listIndex.modelName,
+                              widget.listIndex.img,
+                              widget.listIndex.value,
+                              widget.listIndex.category,
+                              'onurcebeciturgutlu@gmail.com');
+                      print('$iconState' + ' 222222.');
+                    }
+                  });
                 },
-                child: icon)),
+                child: Provider.of<LikedProvider>(context, listen: false)
+                    .initialIcon)),
       ],
     );
   }
