@@ -1,24 +1,31 @@
 import 'package:e_commer/constant.dart';
-import 'package:e_commer/models/firestore_services/liked_products_model.dart';
-import 'package:e_commer/services/liked_products_service.dart';
+import 'package:e_commer/models/firestore_services/basket_list_model.dart';
+import 'package:e_commer/providers/basket_list.dart';
+import 'package:e_commer/services/basket_list_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class LikedProductsHomePage extends StatefulWidget {
-  const LikedProductsHomePage({Key? key}) : super(key: key);
+class BasketListHomePage extends StatefulWidget {
+  const BasketListHomePage({Key? key}) : super(key: key);
 
   @override
-  State<LikedProductsHomePage> createState() => _LikedProductsHomePageState();
+  State<BasketListHomePage> createState() => _BasketListHomePageState();
 }
 
-class _LikedProductsHomePageState extends State<LikedProductsHomePage> {
+class _BasketListHomePageState extends State<BasketListHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder<List<LikedProductsModel>>(
-        stream: readLikedList(email: email),
+      body: StreamBuilder<List<BasketListModel>>(
+        stream: readBasketList(email: email),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final products = snapshot.data!;
+
+            final productsName = products.map((e) =>
+                Provider.of<BasketProvider>(context, listen: true)
+                    .addNameList(e.name.toString()));
+            print(productsName);
             return ListView(
               children: products.map(productsWidgetBody).toList(),
             );
@@ -37,9 +44,9 @@ class _LikedProductsHomePageState extends State<LikedProductsHomePage> {
   }
 }
 
-Widget productsWidgetBody(LikedProductsModel products) => Container(
+Widget productsWidgetBody(BasketListModel products) => Container(
     padding: const EdgeInsets.all(smallPadding),
-    decoration: BoxDecoration(
+    decoration: const BoxDecoration(
       shape: BoxShape.rectangle,
       boxShadow: [
         BoxShadow(

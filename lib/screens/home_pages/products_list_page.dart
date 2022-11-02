@@ -1,8 +1,9 @@
 import 'package:e_commer/constant.dart';
 import 'package:e_commer/data/products_data.dart';
 import 'package:e_commer/models/api_services/products_model.dart';
-import 'package:e_commer/providers/liked_provider.dart';
+import 'package:e_commer/providers/basket_list.dart';
 import 'package:e_commer/screens/products_details_pages/details_page.dart';
+import 'package:e_commer/services/basket_list_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -43,6 +44,7 @@ class ProductsListWidget extends StatelessWidget {
                   final listIndex = productsList[index];
                   return ProductListBodyWidget(
                     listIndex: listIndex,
+                    index: index,
                   );
                 });
           } else {
@@ -57,10 +59,12 @@ class ProductsListWidget extends StatelessWidget {
 }
 
 class ProductListBodyWidget extends StatelessWidget {
-  const ProductListBodyWidget({Key? key, required this.listIndex})
+  const ProductListBodyWidget(
+      {Key? key, required this.listIndex, required this.index})
       : super(key: key);
 
   final Products listIndex;
+  final int index;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -88,7 +92,7 @@ class ProductListBodyWidget extends StatelessWidget {
         ]),
         child: Column(
           children: [
-            CustomImageWidget(listIndex: listIndex),
+            CustomImageWidget(listIndex: listIndex, index: index),
             const Spacer(),
             Text(
               listIndex.modelName.toString(),
@@ -113,34 +117,44 @@ class ProductListBodyWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 const SizedBox(width: 5),
-                Container(
-                  height: 40,
-                  width: 100,
-                  decoration: BoxDecoration(
-                      color: kLightColor,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: Text(
-                          'Add to Basket',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline5!
-                              .copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600),
+                InkWell(
+                  onTap: () {
+                    updateBasket(
+                        email: email,
+                        name: listIndex.modelName,
+                        value: listIndex.value,
+                        number: listIndex.number,
+                        img: listIndex.img);
+                  },
+                  child: Container(
+                    height: 40,
+                    width: 100,
+                    decoration: BoxDecoration(
+                        color: kLightColor,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 5,
                         ),
-                      ),
-                      const Icon(
-                        Icons.shopping_basket_rounded,
-                        size: 18,
-                      )
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: Text(
+                            'Add to Basket',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline5!
+                                .copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                        const Icon(
+                          Icons.shopping_basket_rounded,
+                          size: 18,
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 const Spacer(),
@@ -179,9 +193,11 @@ class CustomImageWidget extends StatefulWidget {
   const CustomImageWidget({
     Key? key,
     required this.listIndex,
+    required this.index,
   }) : super(key: key);
 
   final Products listIndex;
+  final int index;
   @override
   State<CustomImageWidget> createState() => _CustomImageWidgetState();
 }
@@ -190,50 +206,15 @@ class CustomImageWidget extends StatefulWidget {
 class _CustomImageWidgetState extends State<CustomImageWidget> {
   Widget build(BuildContext context) {
     final iconState =
-        Provider.of<LikedProvider>(context, listen: false).iconState;
-    return Stack(
-      children: [
-        Container(
-          height: 180,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.fill,
-              image: AssetImage(widget.listIndex.img.toString()),
-            ),
-          ),
+        Provider.of<BasketProvider>(context, listen: false).iconState;
+    return Container(
+      height: 180,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.fill,
+          image: AssetImage(widget.listIndex.img.toString()),
         ),
-        Positioned(
-            top: 5,
-            right: 5,
-            child: InkWell(
-                onTap: () {
-                  setState(() {
-                    if (iconState == false) {
-                      Provider.of<LikedProvider>(context, listen: false)
-                          .changeLikedIcon(
-                              !iconState,
-                              widget.listIndex.modelName,
-                              widget.listIndex.img,
-                              widget.listIndex.value,
-                              widget.listIndex.category,
-                              'onurcebeciturgutlu@gmail.com');
-                      print('$iconState' + ' 111111');
-                    } else {
-                      Provider.of<LikedProvider>(context, listen: false)
-                          .changeLikedIcon(
-                              !iconState,
-                              widget.listIndex.modelName,
-                              widget.listIndex.img,
-                              widget.listIndex.value,
-                              widget.listIndex.category,
-                              'onurcebeciturgutlu@gmail.com');
-                      print('$iconState' + ' 222222.');
-                    }
-                  });
-                },
-                child: Provider.of<LikedProvider>(context, listen: false)
-                    .initialIcon)),
-      ],
+      ),
     );
   }
 }

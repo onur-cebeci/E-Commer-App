@@ -4,8 +4,8 @@ import 'package:e_commer/constant.dart';
 import 'package:e_commer/models/api_services/products_model.dart';
 import 'package:e_commer/models/categories_model.dart';
 import 'package:e_commer/providers/bottom_navigator_widget_provider.dart';
+import 'package:e_commer/screens/basket_list_pages/basket_list_home_page.dart';
 import 'package:e_commer/screens/home_pages/products_list_page.dart';
-import 'package:e_commer/screens/liked_products_pages/liked_products_home_page.dart';
 import 'package:e_commer/screens/products_details_pages/details_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +56,7 @@ class HomePage extends StatelessWidget {
                 children: const [
                   HomePageWidgets(),
                   ProductsListWidget(),
-                  LikedProductsHomePage(),
+                  BasketListHomePage(),
                 ],
               ),
             )));
@@ -263,13 +263,13 @@ class CustomNavigationBarWidget extends StatelessWidget {
             onTap: () {
               controller.jumpToPage(2);
             },
-            child: const Icon(Icons.favorite_outline_outlined),
+            child: const Icon(Icons.shopping_bag_outlined),
           ),
           InkWell(
             onTap: () {
               controller.jumpToPage(3);
             },
-            child: const Icon(Icons.shopping_bag_outlined),
+            child: const Icon(Icons.person_outline),
           ),
         ],
       ),

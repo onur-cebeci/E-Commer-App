@@ -1,7 +1,7 @@
 import 'package:e_commer/constant.dart';
 import 'package:e_commer/firebase_options.dart';
+import 'package:e_commer/providers/basket_list.dart';
 import 'package:e_commer/providers/bottom_navigator_widget_provider.dart';
-import 'package:e_commer/providers/liked_provider.dart';
 import 'package:e_commer/screens/login_screens/login_home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => BottomNavigatorWidgetProvider()),
-        ChangeNotifierProvider(create: (_) => LikedProvider()),
+        ChangeNotifierProvider(create: (_) => BasketProvider()),
       ],
       child: const MyApp(),
     ),
