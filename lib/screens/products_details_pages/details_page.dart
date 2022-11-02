@@ -1,7 +1,7 @@
-import 'package:e_commer/constant.dart';
 import 'package:e_commer/models/api_services/products_model.dart';
-import 'package:e_commer/screens/home_pages/home_page.dart';
+import 'package:e_commer/screens/witgets/random_image_witget.dart';
 import 'package:e_commer/services/basket_list_service.dart';
+import 'package:e_commer/utils/constant.dart';
 import 'package:flutter/material.dart';
 
 class DetailsPage extends StatelessWidget {
@@ -36,7 +36,7 @@ class DetailsPage extends StatelessWidget {
                     child: ElevatedButton(
                         onPressed: () {
                           updateBasket(
-                              email: 'onurcebeciturgutlu@gmail.com',
+                              email: email,
                               name: product.modelName,
                               value: product.value,
                               img: product.img,
@@ -61,9 +61,7 @@ class DetailsPage extends StatelessWidget {
                         .headline4!
                         .copyWith(color: Colors.black),
                   ),
-                  RandomImageWidget(
-                    size: size,
-                  ),
+                  const RandomImageWidget(),
                   const SizedBox(
                     height: smallPadding,
                   )

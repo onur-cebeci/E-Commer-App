@@ -1,5 +1,5 @@
-import 'package:e_commer/constant.dart';
 import 'package:e_commer/firebase_auth/sign_up_auth.dart';
+import 'package:e_commer/utils/constant.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 

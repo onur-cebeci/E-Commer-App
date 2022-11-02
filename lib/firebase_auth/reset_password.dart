@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../constant.dart';
+import '../utils/constant.dart';
 
 Future resetPassword(
     TextEditingController emailController, BuildContext context) async {

@@ -1,7 +1,7 @@
-import 'package:e_commer/constant.dart';
 import 'package:e_commer/firebase_auth/sign_in_auth.dart';
 import 'package:e_commer/firebase_auth/socials_auth.dart';
 import 'package:e_commer/screens/login_screens/reset_password_page.dart';
+import 'package:e_commer/utils/constant.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatelessWidget {

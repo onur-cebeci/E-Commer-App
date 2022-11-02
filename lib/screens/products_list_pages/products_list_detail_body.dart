@@ -1,62 +1,9 @@
-import 'package:e_commer/constant.dart';
-import 'package:e_commer/data/products_data.dart';
 import 'package:e_commer/models/api_services/products_model.dart';
-import 'package:e_commer/providers/basket_list.dart';
 import 'package:e_commer/screens/products_details_pages/details_page.dart';
+import 'package:e_commer/screens/products_list_pages/products_detail_page_image.dart';
 import 'package:e_commer/services/basket_list_service.dart';
+import 'package:e_commer/utils/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-class ProductsListWidget extends StatelessWidget {
-  const ProductsListWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Container(
-      height: size.height,
-      padding: const EdgeInsets.only(top: smallPadding),
-      child: FutureBuilder(
-        future: ProductsApi().readProdutcsJsonData(),
-        builder: (context, data) {
-          if (data.hasError) {
-            return Center(
-              child: Text(
-                "Something Going Wrong",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline3!
-                    .copyWith(color: Colors.red),
-              ),
-            );
-          } else if (data.hasData) {
-            var productsList = data.data as List<Products>;
-            return GridView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: smallPadding),
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 250,
-                    childAspectRatio: 1,
-                    crossAxisSpacing: 10,
-                    mainAxisExtent: 300,
-                    mainAxisSpacing: 10),
-                itemCount: productsList.length,
-                itemBuilder: (_, index) {
-                  final listIndex = productsList[index];
-                  return ProductListBodyWidget(
-                    listIndex: listIndex,
-                    index: index,
-                  );
-                });
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
-    );
-  }
-}
 
 class ProductListBodyWidget extends StatelessWidget {
   const ProductListBodyWidget(
@@ -183,36 +130,6 @@ class ProductListBodyWidget extends StatelessWidget {
             ),
             const Spacer(),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class CustomImageWidget extends StatefulWidget {
-  const CustomImageWidget({
-    Key? key,
-    required this.listIndex,
-    required this.index,
-  }) : super(key: key);
-
-  final Products listIndex;
-  final int index;
-  @override
-  State<CustomImageWidget> createState() => _CustomImageWidgetState();
-}
-
-@override
-class _CustomImageWidgetState extends State<CustomImageWidget> {
-  Widget build(BuildContext context) {
-    final iconState =
-        Provider.of<BasketProvider>(context, listen: false).iconState;
-    return Container(
-      height: 180,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          fit: BoxFit.fill,
-          image: AssetImage(widget.listIndex.img.toString()),
         ),
       ),
     );

@@ -1,7 +1,7 @@
-import 'package:e_commer/constant.dart';
 import 'package:e_commer/models/firestore_services/basket_list_model.dart';
 import 'package:e_commer/providers/basket_list.dart';
 import 'package:e_commer/services/basket_list_service.dart';
+import 'package:e_commer/utils/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +25,7 @@ class _BasketListHomePageState extends State<BasketListHomePage> {
             final productsName = products.map((e) =>
                 Provider.of<BasketProvider>(context, listen: true)
                     .addNameList(e.name.toString()));
-            print(productsName);
+
             return ListView(
               children: products.map(productsWidgetBody).toList(),
             );
