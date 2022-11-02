@@ -1,4 +1,4 @@
-import 'package:e_commer/constant.dart';
+import 'package:e_commer/utils/constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

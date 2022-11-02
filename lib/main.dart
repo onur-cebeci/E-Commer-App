@@ -1,8 +1,8 @@
-import 'package:e_commer/constant.dart';
 import 'package:e_commer/firebase_options.dart';
 import 'package:e_commer/providers/basket_list.dart';
 import 'package:e_commer/providers/bottom_navigator_widget_provider.dart';
 import 'package:e_commer/screens/login_screens/login_home_page.dart';
+import 'package:e_commer/utils/constant.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
