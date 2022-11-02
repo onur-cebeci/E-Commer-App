@@ -1,4 +1,5 @@
 import 'package:e_commer/constant.dart';
+import 'package:e_commer/services/users_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +23,10 @@ Future singUpWithFirebase(
     await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim());
+
+    await createUser(
+      email: emailController.text.trim(),
+    );
   } catch (e) {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }

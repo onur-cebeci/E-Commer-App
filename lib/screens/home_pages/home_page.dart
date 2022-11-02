@@ -1,11 +1,18 @@
 import 'dart:async';
 
 import 'package:e_commer/constant.dart';
+import 'package:e_commer/models/api_services/products_model.dart';
 import 'package:e_commer/models/categories_model.dart';
+import 'package:e_commer/providers/bottom_navigator_widget_provider.dart';
+import 'package:e_commer/screens/basket_list_pages/basket_list_home_page.dart';
 import 'package:e_commer/screens/home_pages/products_list_page.dart';
+import 'package:e_commer/screens/products_details_pages/details_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
+
+import '../../data/products_data.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,25 +24,42 @@ class HomePage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         bottomNavigationBar: CustomNavigationBarWidget(
-            size: size, controller: _pageViewController),
+          controller: _pageViewController,
+          size: size,
+        ),
         backgroundColor: Colors.white,
         appBar: AppBar(
-          leading: InkWell(
-            onTap: () async {
-              await GoogleSignIn().signOut();
-              await FirebaseAuth.instance.signOut();
-            },
-            child: const Icon(Icons.exit_to_app),
+          actions: [
+            InkWell(
+              onTap: () async {
+                await GoogleSignIn().signOut();
+                await FirebaseAuth.instance.signOut();
+              },
+              child: const Icon(Icons.exit_to_app),
+            ),
+            const SizedBox(
+              width: 5,
+            )
+          ],
+          title: Text(
+            'E-Commerce',
+            style: Theme.of(context).textTheme.headline2,
           ),
         ),
-        body: PageView(
-          controller: _pageViewController,
-          physics: const NeverScrollableScrollPhysics(),
-          children: const [
-            HomePageWidgets(),
-            ProductsListWidget(),
-          ],
-        ));
+        body: SingleChildScrollView(
+            physics: const ClampingScrollPhysics(),
+            child: SizedBox(
+              height: size.height - 130,
+              child: PageView(
+                controller: _pageViewController,
+                physics: const NeverScrollableScrollPhysics(),
+                children: const [
+                  HomePageWidgets(),
+                  ProductsListWidget(),
+                  BasketListHomePage(),
+                ],
+              ),
+            )));
   }
 }
 
@@ -52,9 +76,8 @@ class HomePageWidgets extends StatelessWidget {
         const CategoriesMenuWidget(),
         const HomePageImageSlider(),
         Container(
-          padding: EdgeInsets.only(top: mediumPadding, left: 5, right: 5),
+          padding: const EdgeInsets.only(top: mediumPadding, left: 5, right: 5),
           height: size.height / 3.1,
-          color: Colors.yellow,
           child: Column(
             children: [
               Row(
@@ -81,19 +104,107 @@ class HomePageWidgets extends StatelessWidget {
                       ))
                 ],
               ),
-              Container(
-                height: (size.height / 3.1) / 1.5,
-                color: Colors.white,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [],
-                ),
-              ),
+              RandomImageWidget(size: size),
             ],
           ),
         ),
       ],
     );
+  }
+}
+
+class RandomImageWidget extends StatelessWidget {
+  const RandomImageWidget({
+    Key? key,
+    required this.size,
+  }) : super(key: key);
+
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+        height: (size.height / 3.1) / 1.5,
+        child: FutureBuilder(
+          future: ProductsApi().readProdutcsJsonData(),
+          builder: (context, data) {
+            if (data.hasError) {
+              return Center(
+                child: Text("${data.error}"),
+              );
+            } else if (data.hasData) {
+              var productsList = data.data as List<Products>;
+              return ListView.builder(
+                controller: ScrollController(keepScrollOffset: false),
+                physics: const ClampingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                itemCount: 6,
+                itemBuilder: (context, index) {
+                  final listIndex = productsList[index];
+                  return InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        PageRouteBuilder(
+                            transitionDuration:
+                                const Duration(milliseconds: 650),
+                            pageBuilder: (context, animation, _) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: DetailsPage(
+                                  product: listIndex,
+                                ),
+                              );
+                            }),
+                      );
+                    },
+                    child: Stack(
+                      children: [
+                        Container(
+                            width: size.width / 2,
+                            decoration: BoxDecoration(
+                              border: const Border(
+                                top: BorderSide(
+                                  color: kPrimaryColor,
+                                  width: 0.5,
+                                ),
+                              ),
+                              image: DecorationImage(
+                                image: AssetImage(
+                                  listIndex.img,
+                                ),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            child: Column(
+                              children: [
+                                const Spacer(),
+                                Text(
+                                  listIndex.modelName,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline3!
+                                      .copyWith(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w400),
+                                ),
+                              ],
+                            )),
+                        Container(
+                          width: size.width / 2,
+                          color: Colors.grey.withOpacity(0.1),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ));
   }
 }
 
@@ -112,7 +223,7 @@ class CustomNavigationBarWidget extends StatelessWidget {
     return Container(
       height: size.height / 12,
       decoration: const BoxDecoration(
-          color: kLightColor,
+          color: kPrimaryColor,
           shape: BoxShape.rectangle,
           boxShadow: [
             BoxShadow(
@@ -128,26 +239,37 @@ class CustomNavigationBarWidget extends StatelessWidget {
           InkWell(
             onTap: () {
               controller.jumpToPage(0);
+
+              Provider.of<BottomNavigatorWidgetProvider>(context, listen: false)
+                  .homePageIcon(true);
+              Provider.of<BottomNavigatorWidgetProvider>(context, listen: false)
+                  .categoryPageIcon(false);
             },
-            child: const Icon(Icons.home),
+            child: Provider.of<BottomNavigatorWidgetProvider>(context).homeIcon,
           ),
           InkWell(
             onTap: () {
               controller.jumpToPage(1);
+
+              Provider.of<BottomNavigatorWidgetProvider>(context, listen: false)
+                  .homePageIcon(false);
+              Provider.of<BottomNavigatorWidgetProvider>(context, listen: false)
+                  .categoryPageIcon(true);
             },
-            child: const Icon(Icons.category_outlined),
+            child: Provider.of<BottomNavigatorWidgetProvider>(context)
+                .categoryIcon,
           ),
           InkWell(
             onTap: () {
               controller.jumpToPage(2);
             },
-            child: const Icon(Icons.favorite),
+            child: const Icon(Icons.shopping_bag_outlined),
           ),
           InkWell(
             onTap: () {
               controller.jumpToPage(3);
             },
-            child: const Icon(Icons.shopping_bag_outlined),
+            child: const Icon(Icons.person_outline),
           ),
         ],
       ),
@@ -174,20 +296,9 @@ class _HomePageImageSliderState extends State<HomePageImageSlider> {
     super.initState();
     _timer = Timer.periodic(const Duration(seconds: 8), (timer) {
       if (_controller.page == 0) {
-        /*
-        _controller.nextPage(
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInQuad);
-       */
         _controller.jumpToPage(1);
       } else if (_controller.page == 1) {
         _controller.jumpToPage(2);
-        /*
-           _controller.animateToPage(_controller.page!.toInt() - 2,
-            duration: const Duration(milliseconds: 10),
-            curve: Curves.easeInQuad);
-         */
-
       } else {
         _controller.jumpToPage(0);
       }
@@ -298,11 +409,11 @@ class CategoriesMenuWidget extends StatelessWidget {
           height: size.height / 5,
           child: GridView.builder(
               padding: const EdgeInsets.only(top: mediumPadding),
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 70,
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: size.width < 1000 ? 70 : 110,
                   childAspectRatio: 1,
                   crossAxisSpacing: 5,
-                  mainAxisExtent: 50,
+                  mainAxisExtent: size.width < 800 ? 50 : 90,
                   mainAxisSpacing: 10),
               itemCount: categoryList.length,
               itemBuilder: (_, index) {

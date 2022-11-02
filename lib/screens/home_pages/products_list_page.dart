@@ -1,7 +1,11 @@
 import 'package:e_commer/constant.dart';
 import 'package:e_commer/data/products_data.dart';
-import 'package:e_commer/models/products_model.dart';
+import 'package:e_commer/models/api_services/products_model.dart';
+import 'package:e_commer/providers/basket_list.dart';
+import 'package:e_commer/screens/products_details_pages/details_page.dart';
+import 'package:e_commer/services/basket_list_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductsListWidget extends StatelessWidget {
   const ProductsListWidget({Key? key}) : super(key: key);
@@ -17,7 +21,13 @@ class ProductsListWidget extends StatelessWidget {
         builder: (context, data) {
           if (data.hasError) {
             return Center(
-              child: Text("${data.error}"),
+              child: Text(
+                "Something Going Wrong",
+                style: Theme.of(context)
+                    .textTheme
+                    .headline3!
+                    .copyWith(color: Colors.red),
+              ),
             );
           } else if (data.hasData) {
             var productsList = data.data as List<Products>;
@@ -34,6 +44,7 @@ class ProductsListWidget extends StatelessWidget {
                   final listIndex = productsList[index];
                   return ProductListBodyWidget(
                     listIndex: listIndex,
+                    index: index,
                   );
                 });
           } else {
@@ -48,125 +59,162 @@ class ProductsListWidget extends StatelessWidget {
 }
 
 class ProductListBodyWidget extends StatelessWidget {
-  const ProductListBodyWidget({Key? key, required this.listIndex})
+  const ProductListBodyWidget(
+      {Key? key, required this.listIndex, required this.index})
       : super(key: key);
 
   final Products listIndex;
+  final int index;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(boxShadow: [
-        BoxShadow(
-            color: kLightColor,
-            blurRadius: 3,
-            spreadRadius: 1,
-            blurStyle: BlurStyle.outer)
-      ]),
-      child: Column(
-        children: [
-          CustomImageWidget(listIndex: listIndex),
-          const Spacer(),
-          Text(
-            listIndex.modelName.toString(),
-            style: Theme.of(context)
-                .textTheme
-                .headline4!
-                .copyWith(color: Colors.black),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5),
-            child: Text(
-              listIndex.productType.toString(),
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(
+          PageRouteBuilder(
+              transitionDuration: const Duration(milliseconds: 650),
+              pageBuilder: (context, animation, _) {
+                return FadeTransition(
+                  opacity: animation,
+                  child: DetailsPage(
+                    product: listIndex,
+                  ),
+                );
+              }),
+        );
+      },
+      child: Container(
+        decoration: const BoxDecoration(boxShadow: [
+          BoxShadow(
+              color: kLightColor,
+              blurRadius: 3,
+              spreadRadius: 1,
+              blurStyle: BlurStyle.outer)
+        ]),
+        child: Column(
+          children: [
+            CustomImageWidget(listIndex: listIndex, index: index),
+            const Spacer(),
+            Text(
+              listIndex.modelName.toString(),
               style: Theme.of(context)
                   .textTheme
-                  .headline5!
+                  .headline4!
                   .copyWith(color: Colors.black),
-              textAlign: TextAlign.start,
             ),
-          ),
-          const Spacer(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              const SizedBox(width: 5),
-              Container(
-                height: 40,
-                width: 100,
-                decoration: BoxDecoration(
-                    color: kLightColor,
-                    borderRadius: BorderRadius.circular(14)),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 5),
-                      child: Text(
-                        'Add to basket',
-                        style: Theme.of(context).textTheme.headline5!.copyWith(
-                            color: Colors.white, fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                    const Icon(
-                      Icons.shopping_basket_rounded,
-                      size: 18,
-                    )
-                  ],
-                ),
-              ),
-              const Spacer(),
-              Text(
-                "${listIndex.value.toString()}\$",
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: Text(
+                listIndex.productType.toString(),
                 style: Theme.of(context)
                     .textTheme
-                    .headline4!
-                    .copyWith(color: kPrimaryColor),
+                    .headline5!
+                    .copyWith(color: Colors.black),
+                textAlign: TextAlign.start,
               ),
-              const SizedBox(
-                width: 5,
-              )
-            ],
-          ),
-          const Spacer(),
-        ],
+            ),
+            const Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const SizedBox(width: 5),
+                InkWell(
+                  onTap: () {
+                    updateBasket(
+                        email: email,
+                        name: listIndex.modelName,
+                        value: listIndex.value,
+                        number: listIndex.number,
+                        img: listIndex.img);
+                  },
+                  child: Container(
+                    height: 40,
+                    width: 100,
+                    decoration: BoxDecoration(
+                        color: kLightColor,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: Text(
+                            'Add to Basket',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline5!
+                                .copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                        const Icon(
+                          Icons.shopping_basket_rounded,
+                          size: 18,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                const Spacer(),
+                RichText(
+                  text: TextSpan(children: [
+                    TextSpan(
+                      text: "\$",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4!
+                          .copyWith(color: Colors.green[900]),
+                    ),
+                    TextSpan(
+                      text: listIndex.value.toString(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4!
+                          .copyWith(color: kPrimaryColor),
+                    ),
+                  ]),
+                ),
+                const SizedBox(
+                  width: 5,
+                )
+              ],
+            ),
+            const Spacer(),
+          ],
+        ),
       ),
     );
   }
 }
 
-class CustomImageWidget extends StatelessWidget {
+class CustomImageWidget extends StatefulWidget {
   const CustomImageWidget({
     Key? key,
     required this.listIndex,
+    required this.index,
   }) : super(key: key);
 
   final Products listIndex;
-
+  final int index;
   @override
+  State<CustomImageWidget> createState() => _CustomImageWidgetState();
+}
+
+@override
+class _CustomImageWidgetState extends State<CustomImageWidget> {
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          height: 180,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.fill,
-              image: AssetImage(listIndex.img![0]),
-            ),
-          ),
+    final iconState =
+        Provider.of<BasketProvider>(context, listen: false).iconState;
+    return Container(
+      height: 180,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.fill,
+          image: AssetImage(widget.listIndex.img.toString()),
         ),
-        Positioned(
-            top: 5,
-            right: 5,
-            child: InkWell(
-              onTap: () {},
-              child: Icon(
-                Icons.favorite,
-                color: Colors.red[500],
-              ),
-            )),
-      ],
+      ),
     );
   }
 }

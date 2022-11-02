@@ -10,14 +10,20 @@ class SignIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Stack(
-        children: [
-          const BackgroundDesign(),
-          BodyWidget(onClickedSignIn: onClickedSignIn),
-        ],
+        body: SingleChildScrollView(
+      physics: const ClampingScrollPhysics(),
+      child: SizedBox(
+        height: size.height,
+        child: Stack(
+          children: [
+            const BackgroundDesign(),
+            BodyWidget(onClickedSignIn: onClickedSignIn),
+          ],
+        ),
       ),
-    );
+    ));
   }
 }
 

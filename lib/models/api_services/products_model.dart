@@ -24,7 +24,7 @@ class Products {
   final String modelName;
   final String category;
   final String productType;
-  final List<String>? img;
+  final String img;
   final String value;
   final String number;
   final String color;
@@ -35,9 +35,7 @@ class Products {
         modelName: json["model_name"] == null ? null : json["model_name"],
         category: json["category"] == null ? null : json["category"],
         productType: json["product_type"] == null ? null : json["product_type"],
-        img: json["img"] == null
-            ? null
-            : List<String>.from(json["img"].map((x) => x)),
+        img: json["img"] == null ? null : json["img"],
         value: json["value"] == null ? null : json["value"],
         number: json["number"] == null ? null : json["number"],
         color: json["color"] == null ? null : json["color"],
@@ -51,7 +49,7 @@ class Products {
         "model_name": modelName == null ? null : modelName,
         "category": category == null ? null : category,
         "product_type": productType == null ? null : productType,
-        "img": img == null ? null : List<dynamic>.from(img!.map((x) => x)),
+        "img": img == null ? null : img,
         "value": value == null ? null : value,
         "number": number == null ? null : number,
         "color": color == null ? null : color,
