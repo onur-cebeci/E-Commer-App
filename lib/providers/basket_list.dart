@@ -1,31 +1,37 @@
-import 'package:e_commer/services/basket_list_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commer/services/total_value_service.dart';
+import 'package:e_commer/utils/constant.dart';
 import 'package:flutter/material.dart';
 
 class BasketProvider extends ChangeNotifier {
-  List<String> nameList = [];
-  Icon initialIcon =
-      Icon(Icons.favorite_outline_outlined, color: Colors.red.shade500);
-  bool iconState = false;
+  getValue(double value) {
+    final userPath = (FirebaseFirestore.instance
+            .collection('users')
+            .doc(email)
+            .collection('totalValue')
+            .doc('value')
+            .get())
+        .then((DocumentSnapshot documentSnapshot) {
+      final totalValue = documentSnapshot.get('value');
+      double result = totalValue + value;
+      updateTotalValue(email: email, value: double.parse(result.toString()));
+    });
 
-  addNameList(String name) {
-    nameList.add(name);
+    notifyListeners();
   }
 
-  addLikedList(
-      String name, String img, String value, String number, String email) {
-    if (nameList.any((e) => e.contains(name) == true)) {
-      nameList.remove('${name}');
-      deleteBasket(
-        email: 'onurcebeciturgutlu@gmail.com',
-      );
-
-      initialIcon =
-          Icon(Icons.favorite_outline_outlined, color: Colors.red.shade500);
-    } else {
-      updateBasket(
-          email: email, name: name, img: img, number: number, value: value);
-      initialIcon = Icon(Icons.favorite, color: Colors.red.shade500);
-    }
+  deleteValue(double value) {
+    final userPath = (FirebaseFirestore.instance
+            .collection('users')
+            .doc(email)
+            .collection('totalValue')
+            .doc('value')
+            .get())
+        .then((DocumentSnapshot documentSnapshot) {
+      final totalValue = documentSnapshot.get('value');
+      double result = totalValue - value;
+      updateTotalValue(email: email, value: double.parse(result.toString()));
+    });
 
     notifyListeners();
   }

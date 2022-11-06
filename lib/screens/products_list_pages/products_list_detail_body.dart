@@ -1,9 +1,11 @@
 import 'package:e_commer/models/api_services/products_model.dart';
+import 'package:e_commer/providers/basket_list.dart';
 import 'package:e_commer/screens/products_details_pages/details_page.dart';
 import 'package:e_commer/screens/products_list_pages/products_detail_page_image.dart';
 import 'package:e_commer/services/basket_list_service.dart';
 import 'package:e_commer/utils/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductListBodyWidget extends StatelessWidget {
   const ProductListBodyWidget(
@@ -72,6 +74,9 @@ class ProductListBodyWidget extends StatelessWidget {
                         value: listIndex.value,
                         number: listIndex.number,
                         img: listIndex.img);
+
+                    Provider.of<BasketProvider>(context, listen: false)
+                        .getValue(double.parse(listIndex.value));
                   },
                   child: Container(
                     height: 40,

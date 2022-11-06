@@ -1,3 +1,4 @@
+import 'package:e_commer/services/total_value_service.dart';
 import 'package:e_commer/services/users_service.dart';
 import 'package:e_commer/utils/constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -27,6 +28,7 @@ Future singUpWithFirebase(
     await createUser(
       email: emailController.text.trim(),
     );
+    setTotalValue(email: emailController.text.trim(), value: 0);
   } catch (e) {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
