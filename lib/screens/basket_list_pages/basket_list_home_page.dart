@@ -14,7 +14,8 @@ class _BasketListHomePageState extends State<BasketListHomePage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    late int total;
+    int? curentValue;
+
     return Scaffold(
       body: StreamBuilder<List<BasketListModel>>(
         stream: readBasketList(email: email),
@@ -22,8 +23,10 @@ class _BasketListHomePageState extends State<BasketListHomePage> {
           if (snapshot.hasData) {
             final products = snapshot.data!;
 
-            final totalValue = products.map((e) => Text('total + e.value'));
-
+            final totalValue = products.map(
+              (e) => Text('e.value.toString()'),
+            );
+            //final result = curentValue! + e.value;
             return Column(
               children: [
                 SizedBox(
