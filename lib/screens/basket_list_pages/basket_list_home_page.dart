@@ -35,7 +35,9 @@ class _BasketListHomePageState extends State<BasketListHomePage> {
               return SizedBox(
                 height: size.height / 1.45,
                 child: ListView(
-                  children: products.map(productsWidgetBody).toList(),
+                  children: products
+                      .map((e) => productsWidgetBody(e, context))
+                      .toList(),
                 ),
               );
             } else if (snapshot.hasError) {
@@ -52,7 +54,6 @@ class _BasketListHomePageState extends State<BasketListHomePage> {
         StreamBuilder<List<TotalValueModel>>(
             stream: readTotalValue(email: email),
             builder: (context, snapshot) {
-
               if (snapshot.hasData) {
                 final products = snapshot.data![0].value.toString();
                 return Container(
@@ -66,7 +67,7 @@ class _BasketListHomePageState extends State<BasketListHomePage> {
                           )
                         : Row(
                             children: [
-                              Spacer(),
+                              const Spacer(),
                               Text(
                                 'Your total basket value',
                                 style: Theme.of(context)
@@ -81,7 +82,7 @@ class _BasketListHomePageState extends State<BasketListHomePage> {
                                     .headline3!
                                     .copyWith(color: Colors.black),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               ElevatedButton(
                                   onPressed: () {},
                                   child: Text(
@@ -89,7 +90,7 @@ class _BasketListHomePageState extends State<BasketListHomePage> {
                                     style:
                                         Theme.of(context).textTheme.headline3,
                                   )),
-                              SizedBox(width: largePadding),
+                              const SizedBox(width: largePadding),
                             ],
                           ));
               } else if (snapshot.hasError) {
@@ -107,7 +108,33 @@ class _BasketListHomePageState extends State<BasketListHomePage> {
   }
 }
 
-Widget productsWidgetBody(BasketListModel products) {
+/*
+ products.map(productsWidgetBody).toList(),
+      StreamBuilder<List<BasketListModel>>(
+          stream: readBasketList(email: email),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final products = snapshot.data!;
+
+              return SizedBox(
+                height: size.height / 1.45,
+                child: ListView(
+                  children: products.map(productsWidgetBody).toList(),
+                ),
+              );
+            } else if (snapshot.hasError) {
+              return const Center(
+                child: Text('Something Going Wrong'),
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ),
+ */
+Widget productsWidgetBody(BasketListModel products, BuildContext context) {
   return Column(
     children: [
       Container(
@@ -166,11 +193,9 @@ Widget productsWidgetBody(BasketListModel products) {
               width: 120,
               child: ElevatedButton(
                 onPressed: () {
-            /*
-
+                  deleteBasket(email: email, documentSnapshotId: products.id);
                   Provider.of<BasketProvider>(context, listen: false)
                       .deleteValue(double.parse(products.value));
-             */
                 },
                 child: Text(
                   'Delete \nto Basket\n\$${products.value}',

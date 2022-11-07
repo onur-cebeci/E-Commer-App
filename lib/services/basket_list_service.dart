@@ -9,14 +9,31 @@ Future updateBasket({
   required String img,
   required String number,
 }) async {
-  final docUSer = FirebaseFirestore.instance.collection('users').doc(email);
+  final docUSer = FirebaseFirestore.instance
+      .collection('users')
+      .doc(email)
+      .collection('basketList');
 
-  docUSer
-      .collection('basketList')
-      .add({'name': name, 'value': value, 'image': img, 'number': number}).then(
-          (documentSnapshot) => documentSnapshotID = documentSnapshot.id);
+  docUSer.add({
+    'name': name,
+    'value': value,
+    'image': img,
+    'number': number,
+    'id': '',
+  }).then((documentSnapshot) =>
+      docUSer.doc(documentSnapshot.id).update({'id': documentSnapshot.id}));
 
   //docUSer.update({'likedList': likedProducts});
+}
+
+Future deleteBasket(
+    {required String email, required String documentSnapshotId}) async {
+  final docList = FirebaseFirestore.instance
+      .collection('users')
+      .doc(email)
+      .collection('basketList');
+
+  docList.doc(documentSnapshotId).delete();
 }
 
 Stream<List<BasketListModel>> readBasketList({required String email}) {
@@ -28,13 +45,4 @@ Stream<List<BasketListModel>> readBasketList({required String email}) {
       .map((snapshots) => snapshots.docs
           .map((doc) => BasketListModel.fromJson(doc.data()))
           .toList());
-}
-
-Future deleteBasket({required String email}) async {
-  final docList = FirebaseFirestore.instance
-      .collection('users')
-      .doc(email)
-      .collection('basketList');
-
-  docList.doc(documentSnapshotID).delete();
 }
