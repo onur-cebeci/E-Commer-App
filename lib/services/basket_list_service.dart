@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commer/models/firestore_services/basket_list_model.dart';
 
-late String documentSnapshotID = '';
 Future updateBasket({
   required String email,
   required String name,
@@ -22,18 +21,6 @@ Future updateBasket({
     'id': '',
   }).then((documentSnapshot) =>
       docUSer.doc(documentSnapshot.id).update({'id': documentSnapshot.id}));
-
-  //docUSer.update({'likedList': likedProducts});
-}
-
-Future deleteBasket(
-    {required String email, required String documentSnapshotId}) async {
-  final docList = FirebaseFirestore.instance
-      .collection('users')
-      .doc(email)
-      .collection('basketList');
-
-  docList.doc(documentSnapshotId).delete();
 }
 
 Stream<List<BasketListModel>> readBasketList({required String email}) {
@@ -45,4 +32,14 @@ Stream<List<BasketListModel>> readBasketList({required String email}) {
       .map((snapshots) => snapshots.docs
           .map((doc) => BasketListModel.fromJson(doc.data()))
           .toList());
+}
+
+Future deleteBasket(
+    {required String email, required String documentSnapshotId}) async {
+  final docList = FirebaseFirestore.instance
+      .collection('users')
+      .doc(email)
+      .collection('basketList');
+
+  docList.doc(documentSnapshotId).delete();
 }

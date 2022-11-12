@@ -1,11 +1,7 @@
 import 'package:e_commer/models/firestore_services/basket_list_model.dart';
-import 'package:e_commer/models/firestore_services/total_value_model.dart';
-import 'package:e_commer/providers/basket_list.dart';
 import 'package:e_commer/services/basket_list_service.dart';
-import 'package:e_commer/services/total_value_service.dart';
 import 'package:e_commer/utils/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class BasketListHomePage extends StatefulWidget {
   const BasketListHomePage({Key? key}) : super(key: key);
@@ -15,9 +11,12 @@ class BasketListHomePage extends StatefulWidget {
 }
 
 class _BasketListHomePageState extends State<BasketListHomePage> {
-  @override
-  void initState() {
-    super.initState();
+  static double getCartTotalValue(List<BasketListModel> products) {
+    double total = 0;
+    for (BasketListModel product in products) {
+      total += double.parse(product.value);
+    }
+    return total;
   }
 
   @override
@@ -27,7 +26,7 @@ class _BasketListHomePageState extends State<BasketListHomePage> {
         body: Column(
       children: [
         StreamBuilder<List<BasketListModel>>(
-          stream: readBasketList(email: email),
+          stream: readBasketList(email: id!),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final products = snapshot.data!;
@@ -51,56 +50,48 @@ class _BasketListHomePageState extends State<BasketListHomePage> {
             }
           },
         ),
-        StreamBuilder<List<TotalValueModel>>(
-            stream: readTotalValue(email: email),
+        StreamBuilder<List<BasketListModel>>(
+            stream: readBasketList(email: id!),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                final products = snapshot.data![0].value.toString();
+                final products = snapshot.data!;
                 return Container(
                     height: size.height / 9.5,
                     width: size.width,
                     color: kSecondColor,
-                    child: double.parse(products) == 0
-                        ? Text(
-                            'Empty',
-                            style: Theme.of(context).textTheme.headline4,
-                          )
-                        : Row(
-                            children: [
-                              const Spacer(),
-                              Text(
-                                'Your total basket value',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline4!
-                                    .copyWith(color: kPrimaryColor),
-                              ),
-                              Text(
-                                ' ${products.toString()}',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline3!
-                                    .copyWith(color: Colors.black),
-                              ),
-                              const Spacer(),
-                              ElevatedButton(
-                                  onPressed: () {},
-                                  child: Text(
-                                    'BUY',
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
-                                  )),
-                              const SizedBox(width: largePadding),
-                            ],
-                          ));
+                    child: Row(
+                      children: [
+                        const Spacer(),
+                        Text(
+                          'Your total basket value',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline4!
+                              .copyWith(color: kPrimaryColor),
+                        ),
+                        Text(
+                          ' ${getCartTotalValue(products)}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline3!
+                              .copyWith(color: Colors.black),
+                        ),
+                        const Spacer(),
+                        ElevatedButton(
+                            onPressed: () {},
+                            child: Text(
+                              'BUY',
+                              style: Theme.of(context).textTheme.headline3,
+                            )),
+                        const SizedBox(width: largePadding),
+                      ],
+                    ));
               } else if (snapshot.hasError) {
                 return const Center(
                   child: Text('Something Going Wrong'),
                 );
               } else {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
+                return const Center();
               }
             }),
       ],
@@ -108,32 +99,6 @@ class _BasketListHomePageState extends State<BasketListHomePage> {
   }
 }
 
-/*
- products.map(productsWidgetBody).toList(),
-      StreamBuilder<List<BasketListModel>>(
-          stream: readBasketList(email: email),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              final products = snapshot.data!;
-
-              return SizedBox(
-                height: size.height / 1.45,
-                child: ListView(
-                  children: products.map(productsWidgetBody).toList(),
-                ),
-              );
-            } else if (snapshot.hasError) {
-              return const Center(
-                child: Text('Something Going Wrong'),
-              );
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
-        ),
- */
 Widget productsWidgetBody(BasketListModel products, BuildContext context) {
   return Column(
     children: [
@@ -193,9 +158,7 @@ Widget productsWidgetBody(BasketListModel products, BuildContext context) {
               width: 120,
               child: ElevatedButton(
                 onPressed: () {
-                  deleteBasket(email: email, documentSnapshotId: products.id);
-                  Provider.of<BasketProvider>(context, listen: false)
-                      .deleteValue(double.parse(products.value));
+                  deleteBasket(email: id!, documentSnapshotId: products.id);
                 },
                 child: Text(
                   'Delete \nto Basket\n\$${products.value}',

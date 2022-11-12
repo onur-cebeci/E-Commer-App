@@ -7,6 +7,7 @@ late final FirebaseAuth _auth = FirebaseAuth.instance;
 Future<void> singInWithFirebase(TextEditingController emailController,
     TextEditingController passwordController, BuildContext context) async {
   String emailAnswerText = 'Email or Password false!!';
+
   final snackBar = SnackBar(
     content: Text(
       emailAnswerText,

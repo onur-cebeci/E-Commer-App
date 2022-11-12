@@ -1,20 +1,13 @@
-class User {
-  final String id;
-  late List<String> likedProducts;
-  late List<String> basketList;
+class UserModel {
+  final String email;
 
-  User(
-      {required this.basketList,
-      required this.likedProducts,
-      required this.id});
+  UserModel({required this.email});
 
   Map<String, dynamic> toJson() => {
-        'id': id,
+        'email': email,
       };
 
-  static User fromJson(Map<String, dynamic> json) => User(
-        id: json['id'],
-        likedProducts: json['likedProducts'],
-        basketList: json['boughtProducts'],
+  static UserModel fromJson(Map<String, dynamic> json) => UserModel(
+        email: json['email'],
       );
 }

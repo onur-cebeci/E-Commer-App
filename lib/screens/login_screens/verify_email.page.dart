@@ -27,7 +27,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
     if (!isEmailVerified) {
       sendVerificationEmail();
       Timer.periodic(
-        const Duration(seconds: 3),
+        const Duration(seconds: 5),
         (_) => checkEmailVerified(),
       );
     }
