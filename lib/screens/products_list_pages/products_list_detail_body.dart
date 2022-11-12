@@ -67,7 +67,7 @@ class ProductListBodyWidget extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     updateBasket(
-                        email: email,
+                        email: id!,
                         name: listIndex.modelName,
                         value: listIndex.value,
                         number: listIndex.number,

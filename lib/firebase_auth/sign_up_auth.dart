@@ -16,6 +16,7 @@ Future singUpWithFirebase(
     ),
     backgroundColor: kPrimaryColor,
   );
+
   final isValid = formKey.currentState!.validate();
   if (!isValid) return;
 
@@ -23,7 +24,6 @@ Future singUpWithFirebase(
     await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim());
-
     await createUser(
       email: emailController.text.trim(),
     );

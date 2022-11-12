@@ -12,9 +12,9 @@ Future<void> singInGoogle() async {
     accessToken: googleAuth?.accessToken,
     idToken: googleAuth?.idToken,
   );
-
   await createUser(
     email: googleUser!.email.toString(),
   );
+
   await FirebaseAuth.instance.signInWithCredential(credential);
 }

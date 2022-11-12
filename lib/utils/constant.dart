@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 const kPrimaryColor = Color(0xFF908DB8);
@@ -25,4 +26,4 @@ const double mediumPadding = 20;
 const double largePadding = 30;
 const double bigPadding = 40;
 
-const String email = 'onurcebeciturgutlu@gmail.com';
+final id = FirebaseAuth.instance.currentUser?.uid;

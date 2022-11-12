@@ -36,7 +36,7 @@ class DetailsPage extends StatelessWidget {
                     child: ElevatedButton(
                         onPressed: () {
                           updateBasket(
-                              email: email,
+                              email: id!,
                               name: product.modelName,
                               value: product.value,
                               img: product.img,
