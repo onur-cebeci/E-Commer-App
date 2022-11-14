@@ -1,5 +1,6 @@
 import 'package:e_commer/firebase_options.dart';
 import 'package:e_commer/providers/bottom_navigator_widget_provider.dart';
+import 'package:e_commer/providers/categories_filter_provider.dart';
 import 'package:e_commer/screens/login_screens/login_home_page.dart';
 import 'package:e_commer/utils/constant.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -15,7 +16,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => BottomNavigatorWidgetProvider()),
-        // ChangeNotifierProvider(create: (_) => BasketProvider()),
+        ChangeNotifierProvider(create: (_) => CategoriesFilterProvider()),
       ],
       child: const MyApp(),
     ),
