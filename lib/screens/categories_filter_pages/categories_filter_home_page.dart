@@ -3,6 +3,7 @@ import 'package:e_commer/models/api_services/products_model.dart';
 import 'package:e_commer/models/categories_model.dart';
 import 'package:e_commer/providers/categories_filter_provider.dart';
 import 'package:e_commer/screens/products_list_pages/products_list_detail_body.dart';
+import 'package:e_commer/utils/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,6 +37,12 @@ class _CategoriesFilterHomePageState extends State<CategoriesFilterHomePage> {
         Provider.of<CategoriesFilterProvider>(context, listen: false)
             .categoryProductsList;
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          widget.categoryItem.categoryName,
+          style: Theme.of(context).textTheme.headline2,
+        ),
+      ),
       body: FutureBuilder(
         future: ProductsApi().readProdutcsJsonData(),
         builder: (context, data) {
@@ -46,16 +53,23 @@ class _CategoriesFilterHomePageState extends State<CategoriesFilterHomePage> {
                     categoryItem: widget.categoryItem,
                     productsList: productsList);
             return GridView.builder(
-                gridDelegate: Provider.of<CategoriesFilterProvider>(context,
-                        listen: false)
-                    .sliverGridDelegate,
+                padding: const EdgeInsets.symmetric(horizontal: smallPadding),
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 250,
+                    childAspectRatio: 1,
+                    crossAxisSpacing: 10,
+                    mainAxisExtent: 320,
+                    mainAxisSpacing: 10),
                 itemCount: categoryProductsList.length,
                 itemBuilder: (_, index) {
                   final listIndex = categoryProductsList[index];
 
-                  return ProductListBodyWidget(
-                    index: index,
-                    listIndex: listIndex,
+                  return Padding(
+                    padding: EdgeInsets.only(top: smallPadding),
+                    child: ProductListBodyWidget(
+                      index: index,
+                      listIndex: listIndex,
+                    ),
                   );
                 });
           } else if (data.hasError) {

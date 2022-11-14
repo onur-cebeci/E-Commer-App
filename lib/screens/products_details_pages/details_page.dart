@@ -97,14 +97,11 @@ class DetailsPage extends StatelessWidget {
                         )),
                   ),
                   const SizedBox(height: bigPadding),
-                  Text(
-                    'Familiar Products',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(color: Colors.black),
+                  RandomImageWidget(
+                    subTitle: '',
+                    title: 'Familiar Products',
+                    controller: PageController(),
                   ),
-                  const RandomImageWidget(),
                   const SizedBox(
                     height: smallPadding,
                   )
