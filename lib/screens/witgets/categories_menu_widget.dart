@@ -1,4 +1,5 @@
 import 'package:e_commer/models/categories_model.dart';
+import 'package:e_commer/screens/categories_filter_pages/categories_filter_home_page.dart';
 import 'package:e_commer/utils/constant.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,17 @@ class CategoriesMenuWidget extends StatelessWidget {
               itemBuilder: (_, index) {
                 final itemIndex = categoryList[index];
                 return InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    /*
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (context) =>
+                            CategoriesFilterHomePage(categoryItem: itemIndex));
+               */
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            CategoriesFilterHomePage(categoryItem: itemIndex)));
+                  },
                   child: Container(
                     decoration: BoxDecoration(
                         color: kSecondColor,

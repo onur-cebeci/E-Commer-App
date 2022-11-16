@@ -8,6 +8,8 @@ class BottomNavigatorWidgetProvider extends ChangeNotifier {
     size: 30,
   );
   late Icon categoryIcon = const Icon(Icons.category_outlined);
+  late Icon basketIcon = const Icon(Icons.shopping_bag_outlined);
+  late Icon profileIcon = const Icon(Icons.person_outline);
 
   homePageIcon(bool selected) {
     bool toggle = true;
@@ -35,6 +37,36 @@ class BottomNavigatorWidgetProvider extends ChangeNotifier {
       );
     } else {
       categoryIcon = const Icon(Icons.category_outlined);
+    }
+    notifyListeners();
+  }
+
+  basketPageIcon(bool selected) {
+    bool toggle = false;
+    toggle = selected;
+    if (toggle == true) {
+      basketIcon = const Icon(
+        Icons.shopping_bag,
+        color: kSecondColor,
+        size: 30,
+      );
+    } else {
+      basketIcon = const Icon(Icons.shopping_bag_outlined);
+    }
+    notifyListeners();
+  }
+
+  profilePageIcon(bool selected) {
+    bool toggle = false;
+    toggle = selected;
+    if (toggle == true) {
+      profileIcon = const Icon(
+        Icons.person,
+        color: kSecondColor,
+        size: 30,
+      );
+    } else {
+      profileIcon = const Icon(Icons.person_outlined);
     }
     notifyListeners();
   }

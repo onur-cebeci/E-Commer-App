@@ -1,6 +1,7 @@
 import 'package:e_commer/models/api_services/products_model.dart';
 import 'package:e_commer/screens/products_details_pages/details_page.dart';
 import 'package:e_commer/screens/products_list_pages/products_detail_page_image.dart';
+import 'package:e_commer/screens/witgets/custom_snack_bar_widget.dart';
 import 'package:e_commer/services/basket_list_service.dart';
 import 'package:e_commer/utils/constant.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class ProductListBodyWidget extends StatelessWidget {
   final int index;
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
@@ -72,6 +74,47 @@ class ProductListBodyWidget extends StatelessWidget {
                         value: listIndex.value,
                         number: listIndex.number,
                         img: listIndex.img);
+                    ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
+                        size: size.height - size.height / 1.1,
+                        widget: Row(
+                          children: [
+                            const Spacer(
+                              flex: 8,
+                            ),
+                            Text(
+                              listIndex.modelName,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline3!
+                                  .copyWith(
+                                      color: kSecondColor,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              ' Added to Basket',
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline3!
+                                  .copyWith(
+                                      color: kSecondColor,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                            const Spacer(
+                              flex: 2,
+                            ),
+                            const Icon(
+                              Icons.shopping_bag_outlined,
+                              color: kSecondColor,
+                            ),
+                            const Spacer(
+                              flex: 8,
+                            ),
+                          ],
+                        ),
+                        color: kMiddleColor.withOpacity(0.6)));
                   },
                   child: Container(
                     height: 40,

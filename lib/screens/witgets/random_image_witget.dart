@@ -1,17 +1,26 @@
 import 'package:e_commer/data/products_data.dart';
 import 'package:e_commer/models/api_services/products_model.dart';
+import 'package:e_commer/providers/bottom_navigator_widget_provider.dart';
 import 'package:e_commer/screens/products_details_pages/details_page.dart';
 import 'package:e_commer/utils/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RandomImageWidget extends StatelessWidget {
   const RandomImageWidget({
     Key? key,
+    required this.title,
+    required this.subTitle,
+    required this.controller,
   }) : super(key: key);
+  final String title;
+  final String subTitle;
+  final PageController controller;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Container(
       padding: const EdgeInsets.only(top: mediumPadding, left: 5, right: 5),
       height: size.height / 3.1,
@@ -20,7 +29,7 @@ class RandomImageWidget extends StatelessWidget {
           Row(
             children: [
               Text(
-                'Populer Products',
+                title,
                 style: Theme.of(context)
                     .textTheme
                     .headline3!
@@ -28,17 +37,38 @@ class RandomImageWidget extends StatelessWidget {
               ),
               const Spacer(),
               TextButton(
-                  style: ButtonStyle(
-                      overlayColor:
-                          MaterialStateProperty.all(Colors.transparent)),
-                  onPressed: () {},
-                  child: Text(
-                    'see all',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5!
-                        .copyWith(color: kPrimaryColor, fontSize: 11),
-                  ))
+                style: ButtonStyle(
+                    overlayColor:
+                        MaterialStateProperty.all(Colors.transparent)),
+                onPressed: () {},
+                child: subTitle.length > 2
+                    ? InkWell(
+                        onTap: () {
+                          controller.jumpToPage(1);
+
+                          Provider.of<BottomNavigatorWidgetProvider>(context,
+                                  listen: false)
+                              .homePageIcon(false);
+                          Provider.of<BottomNavigatorWidgetProvider>(context,
+                                  listen: false)
+                              .categoryPageIcon(true);
+                        },
+                        child: Text(
+                          subTitle,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline5!
+                              .copyWith(color: kPrimaryColor, fontSize: 11),
+                        ),
+                      )
+                    : Text(
+                        subTitle,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline5!
+                            .copyWith(color: kPrimaryColor, fontSize: 11),
+                      ),
+              ),
             ],
           ),
           SizedBox(
@@ -52,6 +82,8 @@ class RandomImageWidget extends StatelessWidget {
                     );
                   } else if (data.hasData) {
                     var productsList = data.data as List<Products>;
+
+                    productsList.shuffle();
                     return ListView.builder(
                       controller: ScrollController(keepScrollOffset: false),
                       physics: const ClampingScrollPhysics(),

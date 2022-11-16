@@ -1,4 +1,5 @@
 import 'package:e_commer/models/api_services/products_model.dart';
+import 'package:e_commer/screens/witgets/custom_snack_bar_widget.dart';
 import 'package:e_commer/screens/witgets/random_image_witget.dart';
 import 'package:e_commer/services/basket_list_service.dart';
 import 'package:e_commer/utils/constant.dart';
@@ -41,6 +42,48 @@ class DetailsPage extends StatelessWidget {
                               value: product.value,
                               img: product.img,
                               number: product.number);
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(customSnackBar(
+                                  size: 0,
+                                  widget: Row(
+                                    children: [
+                                      const Spacer(
+                                        flex: 8,
+                                      ),
+                                      Text(
+                                        product.modelName,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline3!
+                                            .copyWith(
+                                                color: kSecondColor,
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        ' Added to Basket',
+                                        textAlign: TextAlign.center,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline3!
+                                            .copyWith(
+                                                color: kSecondColor,
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.bold),
+                                      ),
+                                      const Spacer(
+                                        flex: 2,
+                                      ),
+                                      const Icon(
+                                        Icons.shopping_bag_outlined,
+                                        color: kSecondColor,
+                                      ),
+                                      const Spacer(
+                                        flex: 8,
+                                      ),
+                                    ],
+                                  ),
+                                  color: kMiddleColor.withOpacity(0.6)));
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -54,14 +97,11 @@ class DetailsPage extends StatelessWidget {
                         )),
                   ),
                   const SizedBox(height: bigPadding),
-                  Text(
-                    'Familiar Products',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(color: Colors.black),
+                  RandomImageWidget(
+                    subTitle: '',
+                    title: 'Familiar Products',
+                    controller: PageController(),
                   ),
-                  const RandomImageWidget(),
                   const SizedBox(
                     height: smallPadding,
                   )

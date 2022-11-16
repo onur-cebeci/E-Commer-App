@@ -45,10 +45,12 @@ class HomePage extends StatelessWidget {
               child: PageView(
                 controller: _pageViewController,
                 physics: const NeverScrollableScrollPhysics(),
-                children: const [
-                  HomeScreen(),
-                  ProductsListHomePageWidget(),
-                  BasketListHomePage(),
+                children: [
+                  HomeScreen(
+                    controller: _pageViewController,
+                  ),
+                  const ProductsListHomePageWidget(),
+                  const BasketListHomePage(),
                 ],
               ),
             )));

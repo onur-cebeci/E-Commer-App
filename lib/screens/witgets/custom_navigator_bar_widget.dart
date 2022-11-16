@@ -39,6 +39,10 @@ class CustomNavigationBarWidget extends StatelessWidget {
                   .homePageIcon(true);
               Provider.of<BottomNavigatorWidgetProvider>(context, listen: false)
                   .categoryPageIcon(false);
+              Provider.of<BottomNavigatorWidgetProvider>(context, listen: false)
+                  .basketPageIcon(false);
+              Provider.of<BottomNavigatorWidgetProvider>(context, listen: false)
+                  .profilePageIcon(false);
             },
             child: Provider.of<BottomNavigatorWidgetProvider>(context).homeIcon,
           ),
@@ -50,6 +54,10 @@ class CustomNavigationBarWidget extends StatelessWidget {
                   .homePageIcon(false);
               Provider.of<BottomNavigatorWidgetProvider>(context, listen: false)
                   .categoryPageIcon(true);
+              Provider.of<BottomNavigatorWidgetProvider>(context, listen: false)
+                  .basketPageIcon(false);
+              Provider.of<BottomNavigatorWidgetProvider>(context, listen: false)
+                  .profilePageIcon(false);
             },
             child: Provider.of<BottomNavigatorWidgetProvider>(context)
                 .categoryIcon,
@@ -57,14 +65,32 @@ class CustomNavigationBarWidget extends StatelessWidget {
           InkWell(
             onTap: () {
               controller.jumpToPage(2);
+              Provider.of<BottomNavigatorWidgetProvider>(context, listen: false)
+                  .homePageIcon(false);
+              Provider.of<BottomNavigatorWidgetProvider>(context, listen: false)
+                  .categoryPageIcon(false);
+              Provider.of<BottomNavigatorWidgetProvider>(context, listen: false)
+                  .basketPageIcon(true);
+              Provider.of<BottomNavigatorWidgetProvider>(context, listen: false)
+                  .profilePageIcon(false);
             },
-            child: const Icon(Icons.shopping_bag_outlined),
+            child:
+                Provider.of<BottomNavigatorWidgetProvider>(context).basketIcon,
           ),
           InkWell(
             onTap: () {
               controller.jumpToPage(3);
+              Provider.of<BottomNavigatorWidgetProvider>(context, listen: false)
+                  .homePageIcon(false);
+              Provider.of<BottomNavigatorWidgetProvider>(context, listen: false)
+                  .categoryPageIcon(false);
+              Provider.of<BottomNavigatorWidgetProvider>(context, listen: false)
+                  .basketPageIcon(false);
+              Provider.of<BottomNavigatorWidgetProvider>(context, listen: false)
+                  .profilePageIcon(true);
             },
-            child: const Icon(Icons.person_outline),
+            child:
+                Provider.of<BottomNavigatorWidgetProvider>(context).profileIcon,
           ),
         ],
       ),
