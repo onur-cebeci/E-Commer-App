@@ -25,13 +25,6 @@ class _CategoriesFilterHomePageState extends State<CategoriesFilterHomePage> {
   }
 
   @override
-  void dispose() {
-    Provider.of<CategoriesFilterProvider>(context, listen: false)
-        .categoryProductsList = [];
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final categoryProductsList =
         Provider.of<CategoriesFilterProvider>(context, listen: false)
